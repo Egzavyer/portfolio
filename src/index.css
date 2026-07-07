@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text: var(--text);
+}
+
+:root {
+  --primary: oklch(21.1% 0.02 212.7);
+  --secondary: oklch(66.2% 0.046 233.6);
+  --text: oklch(86.8% 0.039 147.6);
+}
+
+[data-theme="light"] {
+  --primary: #f2e4e1;
+  --secondary: #886754;
+  --text: #3c243a;
+}
+
+[data-theme="dark"] {
+  --primary: oklch(21.1% 0.02 212.7);
+  --secondary: oklch(66.2% 0.046 233.6);
+  --text: oklch(86.8% 0.039 147.6);
+}
