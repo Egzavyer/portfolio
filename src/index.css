@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Saira";
+  src: url("./assets/fonts/Saira.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
   --color-text: var(--text);
   --color-accent: var(--accent);
+
+  --font-saira: "Saira", sans-serif;
 }
 
 :root {
@@ -13,7 +23,7 @@
   --secondary: oklch(48.891% 0.13562 141.525);
   --tertiary: oklch(52.945% 0.0492 27.467);
   --text: oklch(86.8% 0.039 147.6);
-  --accent: oklch(59.17% 0.1871 143.865);
+  --accent: oklch(57.468% 0.12016 321.513);
 }
 
 [data-theme="light"] {

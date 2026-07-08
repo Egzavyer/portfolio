@@ -4,5 +4,9 @@
     "experience": "Experience",
     "projects": "Projects",
     "resume": "Resume"
+  },
+  "hero": {
+    "welcome": "Welcome! My name is Xavier Lermusieaux",
+    "subtitle": "Tinkerer | Programmer | Philomath"
   }
 }

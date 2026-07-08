@@ -4,5 +4,9 @@
     "experience": "Expérience",
     "projects": "Projets",
     "resume": "CV"
+  },
+  "hero": {
+    "welcome": "Bienvenue! Je m'appelle Xavier Lermusieaux",
+    "subtitle": "Bricoleur | Programmeur | Philomathe"
   }
 }
