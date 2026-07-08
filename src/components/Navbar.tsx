@@ -33,47 +33,62 @@ export function Navbar() {
     <div className="flex justify-between p-4 border border-text items-center rounded-2xl">
       <div className="text-xl">Xavier Lermusieaux</div>
       <div className="flex text-xl items-center">
-        <ul className="flex flex-row gap-6">
-          <li>{t("navbar.about")}</li>
-          <li>{t("navbar.experience")}</li>
-          <li>{t("navbar.projects")}</li>
+        <ul className="flex flex-row gap-24">
+          <NavbarLink label={t("navbar.about")} />
+          <NavbarLink label={t("navbar.experience")} />
+          <NavbarLink label={t("navbar.projects")} />
         </ul>
       </div>
       <div className="flex text-xl items-center">
         <ul className="flex flex-row gap-4">
-          <li className="flex items-center">
-            <button
-              className="border cursor-pointer py-2 px-5 rounded"
-              type="button"
-              onClick={() => console.log("HERE")}
-            >
-              {t("navbar.resume")}
-            </button>
-          </li>
-          <li className="flex items-center">
-            <button
-              className="flex"
-              type="button"
-              onPointerDown={() => toggleLanguage()}
-            >
-              {language}
-            </button>
-          </li>
-          <li className="flex items-center">
-            <button
-              type="button"
-              onPointerDown={() => toggleTheme()}
-              className="flex"
-            >
-              {theme === "light" ? (
+          <NavbarButton
+            onPointerDown={() => console.log("HERE")}
+            children={t("navbar.resume")}
+            className="border cursor-pointer py-2 px-5 rounded"
+          />
+          <NavbarButton
+            onPointerDown={() => toggleLanguage()}
+            children={language}
+          />
+          <NavbarButton
+            onPointerDown={() => toggleTheme()}
+            children={
+              theme === "light" ? (
                 <IconMoon stroke={1} size={30} />
               ) : (
                 <IconSun stroke={1} size={30} />
-              )}
-            </button>
-          </li>
+              )
+            }
+          />
         </ul>
       </div>
     </div>
+  );
+}
+
+type NavbarLinkProps = {
+  label: string;
+};
+
+function NavbarLink({ label }: NavbarLinkProps) {
+  return <li className="hover:text-accent hover:cursor-pointer">{label}</li>;
+}
+
+type NavbarButtonProps = {
+  children: React.ReactNode;
+  onPointerDown: () => void;
+  className?: string;
+};
+function NavbarButton({
+  onPointerDown,
+  children,
+  className,
+}: NavbarButtonProps) {
+  return (
+    <li className="flex items-center">
+      <button className={className} type="button" onPointerDown={onPointerDown}>
+        {children}
+      </button>
+    </li>
   );
 }
