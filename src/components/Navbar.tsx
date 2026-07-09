@@ -1,19 +1,145 @@
 import { useTranslation } from "react-i18next";
-import { IconSun, IconMoon } from "@tabler/icons-react";
+import { IconSun, IconMoon, IconMenu2, IconX } from "@tabler/icons-react";
 import { useState, type RefObject } from "react";
 import i18n from "../../i18n/i18n";
 
 type NavbarProps = {
+  heroSectionRef: RefObject<HTMLDivElement | null>;
   aboutSectionRef: RefObject<HTMLDivElement | null>;
   experienceSectionRef: RefObject<HTMLDivElement | null>;
   projectsSectionRef: RefObject<HTMLDivElement | null>;
 };
 
+const scrollToSection = (sectionRef: RefObject<HTMLDivElement | null>) => {
+  sectionRef.current?.scrollIntoView({
+    behavior: "smooth",
+  });
+};
+
 export function Navbar({
+  heroSectionRef,
   aboutSectionRef,
   experienceSectionRef,
   projectsSectionRef,
 }: NavbarProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  return (
+    <div>
+      <div className="flex justify-end fixed z-10 top-4 right-4 xl:hidden">
+        <div className="flex items-center">
+          {isOpen ? (
+            <button
+              type="button"
+              className="outline-none"
+              onPointerDown={() => setIsOpen(false)}
+            >
+              <IconX stroke={1} />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="outline-none"
+              onPointerDown={() => setIsOpen(true)}
+            >
+              <IconMenu2 stroke={1} />
+            </button>
+          )}
+        </div>
+      </div>
+      {isOpen ? (
+        <div className="fixed w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden">
+          <div className="flex justify-center flex-col gap-12 items-center text-center">
+            <div className="text-xl">
+              <button
+                className="hover:cursor-pointer hover:text-accent"
+                type="button"
+                onPointerDown={() => scrollToSection(heroSectionRef)}
+              >
+                Xavier Lermusieaux
+              </button>
+            </div>
+            <NavbarLinks
+              aboutSectionRef={aboutSectionRef}
+              experienceSectionRef={experienceSectionRef}
+              projectsSectionRef={projectsSectionRef}
+            />
+            <NavbarButtons />
+          </div>
+        </div>
+      ) : undefined}
+      <div className="hidden justify-center items-center fixed w-full z-10 top-4 xl:flex">
+        <div className="flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary">
+          <div className="text-xl">
+            <button
+              className="hover:cursor-pointer hover:text-accent"
+              type="button"
+              onPointerDown={() => scrollToSection(heroSectionRef)}
+            >
+              Xavier Lermusieaux
+            </button>
+          </div>
+          <NavbarLinks
+            aboutSectionRef={aboutSectionRef}
+            experienceSectionRef={experienceSectionRef}
+            projectsSectionRef={projectsSectionRef}
+          />
+          <NavbarButtons />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type NavbarLinksProps = {
+  aboutSectionRef: RefObject<HTMLDivElement | null>;
+  experienceSectionRef: RefObject<HTMLDivElement | null>;
+  projectsSectionRef: RefObject<HTMLDivElement | null>;
+};
+
+function NavbarLinks({
+  aboutSectionRef,
+  experienceSectionRef,
+  projectsSectionRef,
+}: NavbarLinksProps) {
+  const { t } = useTranslation();
+  return (
+    <div className="flex text-xl items-center">
+      <ul className="flex flex-col gap-12 xl:gap-24 xl:flex-row">
+        <NavbarLink label={t("navbar.about")} sectionRef={aboutSectionRef} />
+        <NavbarLink
+          label={t("navbar.experience")}
+          sectionRef={experienceSectionRef}
+        />
+        <NavbarLink
+          label={t("navbar.projects")}
+          sectionRef={projectsSectionRef}
+        />
+      </ul>
+    </div>
+  );
+}
+
+type NavbarLinkProps = {
+  label: string;
+  sectionRef: RefObject<HTMLDivElement | null>;
+};
+
+function NavbarLink({ label, sectionRef }: NavbarLinkProps) {
+  return (
+    <li>
+      <button
+        className="hover:cursor-pointer hover:text-accent"
+        type="button"
+        onPointerDown={() => scrollToSection(sectionRef)}
+      >
+        {label}
+      </button>
+    </li>
+  );
+}
+
+function NavbarButtons() {
   const { t } = useTranslation();
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState<"EN" | "FR">("EN");
@@ -38,77 +164,30 @@ export function Navbar({
       i18n.changeLanguage("en");
     }
   }
-
   return (
-    <div className="flex justify-center items-center fixed w-full z-10 top-4">
-      <div className=" flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary">
-        <div className="text-xl">Xavier Lermusieaux</div>
-        <div className="flex text-xl items-center">
-          <ul className="flex flex-row gap-24">
-            <NavbarLink
-              label={t("navbar.about")}
-              sectionRef={aboutSectionRef}
-            />
-            <NavbarLink
-              label={t("navbar.experience")}
-              sectionRef={experienceSectionRef}
-            />
-            <NavbarLink
-              label={t("navbar.projects")}
-              sectionRef={projectsSectionRef}
-            />
-          </ul>
-        </div>
-        <div className="flex text-xl items-center">
-          <ul className="flex flex-row gap-4">
-            <NavbarButton
-              onPointerDown={() => console.log("HERE")}
-              children={t("navbar.resume")}
-              className="border py-2 px-5 rounded"
-            />
-            <NavbarButton
-              onPointerDown={() => toggleLanguage()}
-              children={language}
-            />
-            <NavbarButton
-              onPointerDown={() => toggleTheme()}
-              children={
-                theme === "light" ? (
-                  <IconMoon stroke={1} size={30} />
-                ) : (
-                  <IconSun stroke={1} size={30} />
-                )
-              }
-            />
-          </ul>
-        </div>
-      </div>
+    <div className="flex text-xl items-center">
+      <ul className="flex flex-col gap-12 items-center xl:flex-row xl:gap-4">
+        <NavbarButton
+          onPointerDown={() => console.log("HERE")}
+          children={t("navbar.resume")}
+          className="border py-2 px-5 rounded"
+        />
+        <NavbarButton
+          onPointerDown={() => toggleLanguage()}
+          children={language}
+        />
+        <NavbarButton
+          onPointerDown={() => toggleTheme()}
+          children={
+            theme === "light" ? (
+              <IconMoon stroke={1} size={30} />
+            ) : (
+              <IconSun stroke={1} size={30} />
+            )
+          }
+        />
+      </ul>
     </div>
-  );
-}
-
-type NavbarLinkProps = {
-  label: string;
-  sectionRef: RefObject<HTMLDivElement | null>;
-};
-
-function NavbarLink({ label, sectionRef }: NavbarLinkProps) {
-  const scrollToSection = (sectionRef: RefObject<HTMLDivElement | null>) => {
-    sectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
-  return (
-    <li>
-      <button
-        className="hover:cursor-pointer hover:text-accent"
-        type="button"
-        onPointerDown={() => scrollToSection(sectionRef)}
-      >
-        {label}
-      </button>
-    </li>
   );
 }
 

@@ -20,32 +20,52 @@ export function About({ aboutSectionRef }: AboutProps) {
     <div
       id="about"
       ref={aboutSectionRef}
-      className="min-h-screen flex items-center"
+      className="min-h-screen flex items-center justify-center"
     >
-      <div className="flex flex-row w-11/12 justify-between">
-        <div className="ml-36 flex flex-col gap-3 ">
-          <h1 className="text-6xl">{t("about.blurb.title")}</h1>
-          <div className="border" />
-          <div className="flex flex-col gap-2 text-2xl w-4xl">
+      <div className="flex flex-col justify-center items-center gap-20 w-11/12 text-center xl:text-left xl:flex-row xl:justify-between">
+        <div className="flex flex-col gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 xl:ml-28">
+          <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
+          <div className="border w-full border-text" />
+          <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl xl:w-4xl">
             <p>{t("about.blurb.line1")}</p>
             <p>{t("about.blurb.line2")}</p>
             <p>{t("about.blurb.line3")}</p>
           </div>
         </div>
-        <div className="flex justify-center items-center w-xl ">
+        <div className="flex justify-center items-center w-xl border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
           <div className="flex flex-col gap-3 items-center">
-            {/**TODO: possibly make this a carousel */}
-            <h2 className="text-5xl">{t("about.techs.title")}</h2>
+            {/*TODO: possibly make this a carousel */}
+            <h2 className="text-2xl xl:text-5xl">{t("about.techs.title")}</h2>
             <ul className="grid grid-cols-3 gap-5">
-              <TechIcon Icon={Go} />
-              <TechIcon Icon={Cpp} />
-              <TechIcon Icon={Rust} />
-              <TechIcon Icon={Python} />
-              <TechIcon Icon={React} />
-              <TechIcon Icon={Pytorch} />
-              <TechIcon Icon={Docker} />
-              <TechIcon Icon={Linux} />
-              <TechIcon Icon={Just} />
+              <TechIcon Icon={Go} url="https://go.dev/" label="Go" />
+              <TechIcon Icon={Cpp} url="https://cplusplus.com/" label="C++" />
+              <TechIcon Icon={Rust} url="https://rust-lang.org/" label="Rust" />
+              <TechIcon
+                Icon={Python}
+                url="https://www.python.org/"
+                label="Python"
+              />
+              <TechIcon Icon={React} url="https://react.dev/" label="React" />
+              <TechIcon
+                Icon={Pytorch}
+                url="https://pytorch.org/"
+                label="Pytorch"
+              />
+              <TechIcon
+                Icon={Docker}
+                url="https://www.docker.com/"
+                label="Docker"
+              />
+              <TechIcon
+                Icon={Linux}
+                url="https://www.linux.org/"
+                label="Linux"
+              />
+              <TechIcon
+                Icon={Just}
+                url="https://just.systems/man/en/"
+                label="Just"
+              />
             </ul>
           </div>
         </div>
@@ -56,12 +76,21 @@ export function About({ aboutSectionRef }: AboutProps) {
 
 type TechIconProps = {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  url: string;
+  label: string;
 };
 
-function TechIcon({ Icon }: TechIconProps) {
+function TechIcon({ Icon, url, label }: TechIconProps) {
   return (
     <li>
-      <Icon width={70} height={70} />
+      <a
+        href={url}
+        target="_blank"
+        className="hover:cursor-pointer flex flex-col gap-2 items-center justify-center"
+      >
+        <Icon width={70} height={70} />
+        {label}
+      </a>
     </li>
   );
 }

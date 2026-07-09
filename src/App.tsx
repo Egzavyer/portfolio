@@ -10,7 +10,7 @@ function App() {
   const experienceSectionRef = useRef<HTMLDivElement | null>(null);
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
   return (
-    <div className="min-h-screen bg-primary text-text font-saira">
+    <div className="min-h-screen w-full bg-primary text-text font-saira overflow-hidden">
       <Hero
         aboutSectionRef={aboutSectionRef}
         experienceSectionRef={experienceSectionRef}

@@ -11,10 +11,10 @@
   },
   "about": {
     "blurb": {
-      "title": "À propos de moi",
+      "title": "À Propos de Moi",
       "line1": "Je suis étudiant en 4e année en Génie Logiciel à l'Université d'Ottawa, au Canada.",
-      "line2": "Au cours de la dernière décennie, j'ai développé des projets allant des systèmes d'exploitation et outils de débogage aux applications d'IA et aux plateformes web modernes. J'aime m'attaquer à des problèmes d'ingénierie complexes, apprendre de nouvelles technologies et comprendre les systèmes en profondeur, depuis leurs fondations.",
-      "line3": "Je suis motivé par l'opportunité de concevoir des logiciels qui améliorent la vie des gens et contribuent à la prochaine génération de technologies."
+      "line2": "Au cours des dix dernières années, j'ai développé des projets allant des systèmes d'exploitation et des outils de débogage aux applications d'intelligence artificielle et aux plateformes web modernes. J'aime m'attaquer à des problèmes d'ingénierie complexes, découvrir de nouvelles technologies et comprendre les systèmes de A à Z.",
+      "line3": "Ce qui me motive, c'est la possibilité de créer des logiciels qui améliorent la vie des gens et contribuent à la prochaine génération de technologies."
     },
     "techs": {
       "title": "Mes Outils Préférés"
