@@ -8,5 +8,16 @@
   "hero": {
     "welcome": "Welcome! My name is Xavier Lermusieaux",
     "subtitle": "Tinkerer | Programmer | Philomath"
+  },
+  "about": {
+    "blurb": {
+      "title": "About Me",
+      "line1": "I'm a 4th-year Software Engineering student at the University of Ottawa, Canada.",
+      "line2": "Over the past decade, I've developed projects ranging from operating systems and debugging tools to AI applications and modern web platforms. I enjoy tackling difficult engineering problems, learning new technologies, and understanding systems from the ground up.",
+      "line3": "I'm driven by the opportunity to build software that improves people's lives and contributes to the next generation of technology."
+    },
+    "techs": {
+      "title": "Tools I Reach For"
+    }
   }
 }

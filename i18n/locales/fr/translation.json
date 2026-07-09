@@ -8,5 +8,16 @@
   "hero": {
     "welcome": "Bienvenue! Je m'appelle Xavier Lermusieaux",
     "subtitle": "Bricoleur | Programmeur | Philomathe"
+  },
+  "about": {
+    "blurb": {
+      "title": "À propos de moi",
+      "line1": "Je suis étudiant en 4e année en Génie Logiciel à l'Université d'Ottawa, au Canada.",
+      "line2": "Au cours de la dernière décennie, j'ai développé des projets allant des systèmes d'exploitation et outils de débogage aux applications d'IA et aux plateformes web modernes. J'aime m'attaquer à des problèmes d'ingénierie complexes, apprendre de nouvelles technologies et comprendre les systèmes en profondeur, depuis leurs fondations.",
+      "line3": "Je suis motivé par l'opportunité de concevoir des logiciels qui améliorent la vie des gens et contribuent à la prochaine génération de technologies."
+    },
+    "techs": {
+      "title": "Mes Outils Préférés"
+    }
   }
 }
