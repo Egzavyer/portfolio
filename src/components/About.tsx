@@ -1,7 +1,13 @@
-export function About() {
+import type { RefObject } from "react";
+
+type AboutProps = {
+  aboutSectionRef: RefObject<HTMLDivElement | null>;
+};
+
+export function About({ aboutSectionRef }: AboutProps) {
   return (
-    <div>
-      <div className="flex border">About</div>
+    <div id="about" ref={aboutSectionRef} className="min-h-screen border">
+      <div className="flex ">About</div>
     </div>
   );
 }
