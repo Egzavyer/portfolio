@@ -23,16 +23,16 @@ export function About({ aboutSectionRef }: AboutProps) {
       className="min-h-screen flex items-center justify-center"
     >
       <div className="flex flex-col justify-center items-center gap-20 w-11/12 text-center xl:text-left xl:flex-row xl:justify-between">
-        <div className="flex flex-col gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 xl:ml-28">
+        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 ">
           <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
           <div className="border w-full border-text" />
-          <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl xl:w-4xl">
+          <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl">
             <p>{t("about.blurb.line1")}</p>
             <p>{t("about.blurb.line2")}</p>
             <p>{t("about.blurb.line3")}</p>
           </div>
         </div>
-        <div className="flex justify-center items-center w-xl border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
+        <div className="flex justify-center items-center w-fit border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
           <div className="flex flex-col gap-3 items-center">
             {/*TODO: possibly make this a carousel */}
             <h2 className="text-2xl xl:text-5xl">{t("about.techs.title")}</h2>
