@@ -84,7 +84,7 @@ function WorkExperience({
       target="_blank"
       className="hover:cursor-pointer border rounded-2xl p-2 xl:border-transparent xl:rounded-none xl:p-0"
     >
-      <li className="grid border-2 border-transparent hover:border-accent hover:shadow-2xl shadow-primary-900 rounded-2xl xl:grid-cols-2">
+      <li className="grid border-2 border-transparent hover:border-accent hover:shadow-2xl shadow-primary-900 rounded-2xl xl:p-4 xl:grid-cols-2">
         <ul className="flex flex-col gap-2">
           {dates.map((date) => {
             return (
