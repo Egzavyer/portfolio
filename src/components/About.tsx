@@ -22,8 +22,8 @@ export function About({ aboutSectionRef }: AboutProps) {
       ref={aboutSectionRef}
       className="min-h-screen flex items-center justify-center w-10/12 "
     >
-      <div className="flex flex-col justify-center items-center gap-20 text-center xl:text-left xl:flex-row xl:justify-between">
-        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 ">
+      <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
+        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
           <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
           <div className="border w-full border-text" />
           <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl">
@@ -82,11 +82,11 @@ type TechIconProps = {
 
 function TechIcon({ Icon, url, label }: TechIconProps) {
   return (
-    <li>
+    <li className="aspect-square">
       <a
         href={url}
         target="_blank"
-        className="hover:cursor-pointer flex flex-col gap-2 items-center justify-center"
+        className="rounded-2xl border border-transparent hover:border-text hover:cursor-pointer hover:shadow-2xl shadow-primary-900 flex flex-col gap-2 items-center justify-center"
       >
         <Icon width={70} height={70} />
         {label}

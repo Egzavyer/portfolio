@@ -26,7 +26,7 @@ export function Navbar({
 
   return (
     <div>
-      <div className="flex justify-end fixed z-10 top-4 right-4 xl:hidden">
+      <div className="flex justify-end fixed z-10 top-5 right-2 xl:hidden">
         <div className="flex items-center">
           {isOpen ? (
             <button
