@@ -30,6 +30,7 @@ export function Experience({ experienceSectionRef }: ExperienceProps) {
             title={t("experience.work.rossvideo.title")}
             description={t("experience.work.rossvideo.description")}
             technologies={["React", "TypeScript", "Java", "MariaDB"]}
+            url="https://www.rossvideo.com/"
           />
           <WorkExperience
             dates={[
@@ -40,6 +41,7 @@ export function Experience({ experienceSectionRef }: ExperienceProps) {
             title={t("experience.work.ised.title")}
             description={t("experience.work.ised.description")}
             technologies={["Java", "SQL", "Salesforce", "Apex"]}
+            url="https://ised-isde.canada.ca/site/ised/en"
           />
         </ul>
       </div>
@@ -53,6 +55,7 @@ type WorkExperienceProps = {
   title: string;
   description: string;
   technologies: string[];
+  url: string;
 };
 
 function WorkExperience({
@@ -61,28 +64,31 @@ function WorkExperience({
   title,
   description,
   technologies,
+  url,
 }: WorkExperienceProps) {
   return (
-    <li className="grid p-4 border border-transparent hover:border-accent hover:shadow-2xl shadow-primary-900 rounded-2xl xl:grid-cols-2">
-      <ul className="flex flex-col gap-2">
-        {dates.map((date) => {
-          return <li key={date}>{date}</li>;
-        })}
-      </ul>
-      <div className="flex flex-col flex-1 gap-4">
-        <div className="flex flex-row items-center gap-3">
-          <h1 className="text-xl xl:text-3xl">{company}</h1>
-          <div className="border h-4" />
-          <h2 className="text-md xl:text-xl">{title}</h2>
-        </div>
-        <p>{description}</p>
-        <ul className="flex flex-row flex-wrap gap-4">
-          {technologies.map((tech) => {
-            return <WorkTechnology key={tech} label={tech} />;
+    <a href={url} target="_blank" className="hover:cursor-pointer">
+      <li className="grid p-4 border-2 border-transparent hover:border-accent hover:shadow-2xl shadow-primary-900 rounded-2xl xl:grid-cols-2">
+        <ul className="flex flex-col gap-2">
+          {dates.map((date) => {
+            return <li key={date}>{date}</li>;
           })}
         </ul>
-      </div>
-    </li>
+        <div className="flex flex-col flex-1 gap-4">
+          <div className="flex flex-row items-center gap-3">
+            <h1 className="text-xl xl:text-3xl">{company}</h1>
+            <div className="border h-4" />
+            <h2 className="text-md xl:text-xl">{title}</h2>
+          </div>
+          <p>{description}</p>
+          <ul className="flex flex-row flex-wrap gap-4">
+            {technologies.map((tech) => {
+              return <WorkTechnology key={tech} label={tech} />;
+            })}
+          </ul>
+        </div>
+      </li>
+    </a>
   );
 }
 

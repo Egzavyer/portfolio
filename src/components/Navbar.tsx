@@ -167,12 +167,13 @@ function NavbarButtons() {
   return (
     <div className="flex text-xl items-center">
       <ul className="flex flex-col gap-12 items-center xl:flex-row xl:gap-4">
-        <NavbarButton
-          onPointerDown={() => console.log("HERE")}
-          className="border py-2 px-5 rounded"
+        <a
+          href="https://drive.google.com/file/d/1roKglCaNw7mJe6H3dIWoeRh0uEqDQYDY/view"
+          target="_blank"
+          className="border py-2 px-5 rounded hover:bg-accent hover:cursor-pointer"
         >
           {t("navbar.resume")}
-        </NavbarButton>
+        </a>
         <NavbarButton onPointerDown={() => toggleLanguage()}>
           {language}
         </NavbarButton>
