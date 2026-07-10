@@ -11,11 +11,11 @@ export function Experience({ experienceSectionRef }: ExperienceProps) {
     <div
       id="experience"
       ref={experienceSectionRef}
-      className="min-h-screen flex flex-col w-10/12 items-center"
+      className="min-h-screen flex flex-col w-10/12 items-center justify-center"
     >
       <div className="flex flex-col gap-15 w-10/12 items-center justify-center ">
         <div className="flex flex-col gap-5 w-full">
-          <div className="text-3xl text-center xl:text-6xl pt-28">
+          <div className="text-3xl text-center xl:text-6xl">
             {t("experience.title")}
           </div>
           <div className="border w-full" />
