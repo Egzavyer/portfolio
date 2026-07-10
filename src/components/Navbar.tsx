@@ -169,23 +169,20 @@ function NavbarButtons() {
       <ul className="flex flex-col gap-12 items-center xl:flex-row xl:gap-4">
         <NavbarButton
           onPointerDown={() => console.log("HERE")}
-          children={t("navbar.resume")}
           className="border py-2 px-5 rounded"
-        />
-        <NavbarButton
-          onPointerDown={() => toggleLanguage()}
-          children={language}
-        />
-        <NavbarButton
-          onPointerDown={() => toggleTheme()}
-          children={
-            theme === "light" ? (
-              <IconMoon stroke={1} size={30} />
-            ) : (
-              <IconSun stroke={1} size={30} />
-            )
-          }
-        />
+        >
+          {t("navbar.resume")}
+        </NavbarButton>
+        <NavbarButton onPointerDown={() => toggleLanguage()}>
+          {language}
+        </NavbarButton>
+        <NavbarButton onPointerDown={() => toggleTheme()}>
+          {theme === "light" ? (
+            <IconMoon stroke={1} size={30} />
+          ) : (
+            <IconSun stroke={1} size={30} />
+          )}
+        </NavbarButton>
       </ul>
     </div>
   );
