@@ -20,9 +20,9 @@ export function About({ aboutSectionRef }: AboutProps) {
     <div
       id="about"
       ref={aboutSectionRef}
-      className="min-h-screen flex items-center justify-center"
+      className="min-h-screen flex items-center justify-center w-10/12 "
     >
-      <div className="flex flex-col justify-center items-center gap-20 w-11/12 text-center xl:text-left xl:flex-row xl:justify-between">
+      <div className="flex flex-col justify-center items-center gap-20 text-center xl:text-left xl:flex-row xl:justify-between">
         <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 ">
           <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
           <div className="border w-full border-text" />
