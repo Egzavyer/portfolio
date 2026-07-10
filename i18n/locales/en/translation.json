@@ -27,14 +27,14 @@
         "term1": "Term 1: Summer and Fall 2025 (8 months)",
         "term2": "Term 2: Summer 2026 (4 months)",
         "company": "Ross Video",
-        "title": "Software Developer Co-op - Robotics",
+        "title": "Software Developer Coop - Robotics",
         "description": "Developed a full-stack robot configuration platform for live video production environments, building an interactive React/PixiJS editing tools and Spring Boot WebSocket services for real-time data synchronization. Improved usability, performance, and scalability across the application."
       },
       "ised": {
         "term1": "Term 1: Summer 2023 (4 months)",
         "term2": "Term 2: Fall 2024 (4 months)",
         "company": "ISED Canada",
-        "title": "Software and Operations Officer Co-op",
+        "title": "Software and Operations Officer Coop",
         "description": "Developed and maintained internal tools and Salesforce applications to support large-scale telecommunications programs. Automated workflows using Java, SQL, VBA, and Salesforce, improving operational efficiency while collaborating with engineering teams and stakeholders to streamline project delivery."
       }
     }

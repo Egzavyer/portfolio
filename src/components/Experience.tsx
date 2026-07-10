@@ -20,7 +20,7 @@ export function Experience({ experienceSectionRef }: ExperienceProps) {
           </div>
           <div className="border w-full" />
         </div>
-        <ul className="flex flex-col items-center justify-center w-fit gap-4">
+        <ul className="flex flex-col items-center justify-center w-10/12 gap-4">
           <WorkExperience
             dates={[
               t("experience.work.rossvideo.term1"),
@@ -69,7 +69,7 @@ function WorkExperience({
           return <li key={date}>{date}</li>;
         })}
       </ul>
-      <div className="flex flex-col flex-1 gap-4 w-full">
+      <div className="flex flex-col flex-1 gap-4">
         <div className="flex flex-row items-center gap-3">
           <h1 className="text-xl xl:text-3xl">{company}</h1>
           <div className="border h-4" />

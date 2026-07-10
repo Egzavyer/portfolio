@@ -19,5 +19,24 @@
     "techs": {
       "title": "Mes Outils Préférés"
     }
+  },
+  "experience": {
+    "title": "Expérience Professionnelle",
+    "work": {
+      "rossvideo": {
+        "term1": "Période 1: Été et Automne 2025 (8 mois)",
+        "term2": "Période 2: Été 2026 (4 mois)",
+        "company": "Ross Video",
+        "title": "Dévelopeur Logiciel Coop - Robotique",
+        "description": "Développement d’une plateforme de configuration robotique full-stack pour les environnements de production vidéo en direct, comprenant la création d’outils d’édition interactifs React/PixiJS et de services WebSocket Spring Boot pour la synchronisation des données en temps réel. Amélioration de l'utilisabilité, des performances et de l’évolutivité de l’application."
+      },
+      "ised": {
+        "term1": "Période 1: Été 2023 (4 mois)",
+        "term2": "Période 2: Automne 2024 (4 mois)",
+        "company": "ISED Canada",
+        "title": "Officier en Logiciel et Opérations Coop",
+        "description": "Développement et maintenance d’outils internes et d’applications Salesforce pour soutenir des programmes de télécommunications à grande échelle. Automatisation des flux de travail à l’aide de Java, SQL, VBA et Salesforce, améliorant ainsi l’efficacité opérationnelle tout en collaborant avec les équipes d’ingénierie et les parties prenantes pour rationaliser la réalisation des projets."
+      }
+    }
   }
 }
