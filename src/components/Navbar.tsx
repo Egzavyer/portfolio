@@ -24,6 +24,30 @@ export function Navbar({
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [language, setLanguage] = useState<"EN" | "FR">("EN");
+
+  function toggleTheme() {
+    if (theme === "dark") {
+      setTheme("light");
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      setTheme("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  }
+
+  // TODO: If more languages are supported, rename to changeLanguage and change to a dropdown
+  function toggleLanguage() {
+    if (language === "EN") {
+      setLanguage("FR");
+      i18n.changeLanguage("fr");
+    } else {
+      setLanguage("EN");
+      i18n.changeLanguage("en");
+    }
+  }
+
   return (
     <div>
       <div className="flex justify-end fixed z-10 top-5 right-2 xl:hidden">
@@ -64,7 +88,12 @@ export function Navbar({
               experienceSectionRef={experienceSectionRef}
               projectsSectionRef={projectsSectionRef}
             />
-            <NavbarButtons />
+            <NavbarButtons
+              theme={theme}
+              language={language}
+              toggleLanguage={toggleLanguage}
+              toggleTheme={toggleTheme}
+            />
           </div>
         </div>
       ) : undefined}
@@ -84,7 +113,12 @@ export function Navbar({
             experienceSectionRef={experienceSectionRef}
             projectsSectionRef={projectsSectionRef}
           />
-          <NavbarButtons />
+          <NavbarButtons
+            theme={theme}
+            language={language}
+            toggleLanguage={toggleLanguage}
+            toggleTheme={toggleTheme}
+          />
         </div>
       </div>
     </div>
@@ -139,31 +173,21 @@ function NavbarLink({ label, sectionRef }: NavbarLinkProps) {
   );
 }
 
-function NavbarButtons() {
+type NavbarButtonsProps = {
+  language: "EN" | "FR";
+  theme: "light" | "dark";
+  toggleLanguage: () => void;
+  toggleTheme: () => void;
+};
+
+function NavbarButtons({
+  language,
+  theme,
+  toggleLanguage,
+  toggleTheme,
+}: NavbarButtonsProps) {
   const { t } = useTranslation();
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-  const [language, setLanguage] = useState<"EN" | "FR">("EN");
 
-  function toggleTheme() {
-    if (theme === "dark") {
-      setTheme("light");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      setTheme("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  }
-
-  // TODO: If more languages are supported, rename to changeLanguage and change to a dropdown
-  function toggleLanguage() {
-    if (language === "EN") {
-      setLanguage("FR");
-      i18n.changeLanguage("fr");
-    } else {
-      setLanguage("EN");
-      i18n.changeLanguage("en");
-    }
-  }
   return (
     <div className="flex text-xl items-center">
       <ul className="flex flex-col gap-12 items-center xl:flex-row xl:gap-4">
