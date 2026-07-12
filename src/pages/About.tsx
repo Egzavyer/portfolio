@@ -9,7 +9,7 @@ import Python from "../assets/icons/python.svg?react";
 import Pytorch from "../assets/icons/pytorch.svg?react";
 import Cpp from "../assets/icons/cpp.svg?react";
 import Linux from "../assets/icons/linux-original.svg?react";
-import { ContentSection } from "./ContentSection";
+import { ContentSection } from "../components/ContentSection";
 
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLDivElement | null>;

@@ -42,5 +42,8 @@
         "description": "Developed and maintained internal tools and Salesforce applications to support large-scale telecommunications programs. Automated workflows using Java, SQL, VBA, and Salesforce, improving operational efficiency while collaborating with engineering teams and stakeholders to streamline project delivery."
       }
     }
+  },
+  "projects": {
+    "title": "Projects"
   }
 }

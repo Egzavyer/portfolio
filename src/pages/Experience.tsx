@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
-import { ContentSection } from "./ContentSection";
+import { ContentSection } from "../components/ContentSection";
 
 type ExperienceProps = {
   experienceSectionRef: RefObject<HTMLDivElement | null>;
