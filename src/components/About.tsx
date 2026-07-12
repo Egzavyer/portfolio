@@ -9,18 +9,20 @@ import Python from "../assets/icons/python.svg?react";
 import Pytorch from "../assets/icons/pytorch.svg?react";
 import Cpp from "../assets/icons/cpp.svg?react";
 import Linux from "../assets/icons/linux-original.svg?react";
+import { ContentSection } from "./ContentSection";
 
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLDivElement | null>;
+  isSidebarOpen: boolean;
 };
 
-export function About({ aboutSectionRef }: AboutProps) {
+export function About({ aboutSectionRef, isSidebarOpen }: AboutProps) {
   const { t } = useTranslation();
   return (
-    <div
+    <ContentSection
+      sectionRef={aboutSectionRef}
+      isSidebarOpen={isSidebarOpen}
       id="about"
-      ref={aboutSectionRef}
-      className="min-h-screen flex items-center justify-center w-10/12 "
     >
       <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
         <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
@@ -70,7 +72,7 @@ export function About({ aboutSectionRef }: AboutProps) {
           </div>
         </div>
       </div>
-    </div>
+    </ContentSection>
   );
 }
 

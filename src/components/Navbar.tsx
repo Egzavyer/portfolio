@@ -1,6 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { IconSun, IconMoon, IconMenu2, IconX } from "@tabler/icons-react";
-import { useState, type RefObject } from "react";
+import {
+  useState,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from "react";
 import i18n from "../../i18n/i18n";
 
 type NavbarProps = {
@@ -8,6 +13,8 @@ type NavbarProps = {
   aboutSectionRef: RefObject<HTMLDivElement | null>;
   experienceSectionRef: RefObject<HTMLDivElement | null>;
   projectsSectionRef: RefObject<HTMLDivElement | null>;
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const scrollToSection = (sectionRef: RefObject<HTMLDivElement | null>) => {
@@ -21,9 +28,9 @@ export function Navbar({
   aboutSectionRef,
   experienceSectionRef,
   projectsSectionRef,
+  isSidebarOpen,
+  setIsSidebarOpen,
 }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [language, setLanguage] = useState<"EN" | "FR">("EN");
 
@@ -50,13 +57,13 @@ export function Navbar({
 
   return (
     <div>
-      <div className="flex justify-end fixed z-10 top-5 right-2 xl:hidden">
+      <div className="flex justify-end fixed z-11 top-5 right-2 xl:hidden">
         <div className="flex items-center">
-          {isOpen ? (
+          {isSidebarOpen ? (
             <button
               type="button"
               className="outline-none"
-              onPointerDown={() => setIsOpen(false)}
+              onPointerDown={() => setIsSidebarOpen(false)}
             >
               <IconX stroke={1} />
             </button>
@@ -64,15 +71,15 @@ export function Navbar({
             <button
               type="button"
               className="outline-none"
-              onPointerDown={() => setIsOpen(true)}
+              onPointerDown={() => setIsSidebarOpen(true)}
             >
               <IconMenu2 stroke={1} />
             </button>
           )}
         </div>
       </div>
-      {isOpen ? (
-        <div className="fixed w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden">
+      {isSidebarOpen ? (
+        <div className="fixed z-10 w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden">
           <div className="flex justify-center flex-col gap-12 items-center text-center">
             <div className="text-xl">
               <button

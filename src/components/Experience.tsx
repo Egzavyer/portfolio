@@ -1,17 +1,22 @@
 import type { RefObject } from "react";
 import { useTranslation } from "react-i18next";
+import { ContentSection } from "./ContentSection";
 
 type ExperienceProps = {
   experienceSectionRef: RefObject<HTMLDivElement | null>;
+  isSidebarOpen: boolean;
 };
 
-export function Experience({ experienceSectionRef }: ExperienceProps) {
+export function Experience({
+  experienceSectionRef,
+  isSidebarOpen,
+}: ExperienceProps) {
   const { t } = useTranslation();
   return (
-    <div
+    <ContentSection
       id="experience"
-      ref={experienceSectionRef}
-      className="min-h-screen flex flex-col w-10/12 items-center justify-center"
+      sectionRef={experienceSectionRef}
+      isSidebarOpen={isSidebarOpen}
     >
       <div className="flex flex-col gap-15 w-10/12 items-center justify-center ">
         <div className="flex flex-col gap-5 w-full">
@@ -57,7 +62,7 @@ export function Experience({ experienceSectionRef }: ExperienceProps) {
           />
         </ul>
       </div>
-    </div>
+    </ContentSection>
   );
 }
 
@@ -84,7 +89,7 @@ function WorkExperience({
       target="_blank"
       className="hover:cursor-pointer border rounded-2xl p-2 xl:border-transparent xl:rounded-none xl:p-0"
     >
-      <li className="grid border-2 border-transparent hover:border-accent hover:shadow-2xl shadow-primary-900 rounded-2xl xl:p-4 xl:grid-cols-2">
+      <li className="grid xl:border-2 xl:border-transparent xl:hover:border-accent xl:hover:shadow-2xl xl:shadow-primary-900 xl:rounded-2xl xl:p-4 xl:grid-cols-2">
         <ul className="flex flex-col gap-2">
           {dates.map((date) => {
             return (
