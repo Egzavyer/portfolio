@@ -13,6 +13,7 @@ type HeroProps = {
   projectsSectionRef: RefObject<HTMLDivElement | null>;
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
+  handleTap: () => void;
 };
 
 export function Hero({
@@ -21,6 +22,7 @@ export function Hero({
   projectsSectionRef,
   isSidebarOpen,
   setIsSidebarOpen,
+  handleTap,
 }: HeroProps) {
   // TODO: add some background images like trees or some kind of scenery, forest for dark mode and mountain for light mode
   const { t } = useTranslation();
@@ -36,7 +38,8 @@ export function Hero({
         setIsSidebarOpen={setIsSidebarOpen}
       />
       <div
-        className={`flex flex-1 flex-col items-center justify-center gap-8 text-center ${isSidebarOpen ? "blur-sm" : "blur-none"}`}
+        onPointerDown={() => handleTap()}
+        className={`flex flex-1 flex-col items-center justify-center gap-8 text-center ${isSidebarOpen ? "blur-xs" : "blur-none"}`}
       >
         <div className="text-4xl xl:text-7xl">{t("hero.welcome")}</div>
         <div className="text-xl xl:text-4xl">{t("hero.subtitle")}</div>

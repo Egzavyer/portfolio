@@ -5,11 +5,13 @@ import { ContentSection } from "./ContentSection";
 type ExperienceProps = {
   experienceSectionRef: RefObject<HTMLDivElement | null>;
   isSidebarOpen: boolean;
+  handleTap: () => void;
 };
 
 export function Experience({
   experienceSectionRef,
   isSidebarOpen,
+  handleTap,
 }: ExperienceProps) {
   const { t } = useTranslation();
   return (
@@ -17,6 +19,7 @@ export function Experience({
       id="experience"
       sectionRef={experienceSectionRef}
       isSidebarOpen={isSidebarOpen}
+      handleTap={handleTap}
     >
       <div className="flex flex-col gap-15 w-10/12 items-center justify-center ">
         <div className="flex flex-col gap-5 w-full">

@@ -5,6 +5,7 @@ type ContentSectionProps = {
   isSidebarOpen: boolean;
   id: string;
   children: React.ReactNode;
+  handleTap: () => void;
 };
 
 export function ContentSection({
@@ -12,12 +13,14 @@ export function ContentSection({
   isSidebarOpen,
   id,
   children,
+  handleTap,
 }: ContentSectionProps) {
   return (
     <div
+      onPointerDown={() => handleTap()}
       id={id}
       ref={sectionRef}
-      className={`${isSidebarOpen ? "blur-lg" : "blur-none"} min-h-screen flex flex-col w-10/12 items-center justify-center`}
+      className={`${isSidebarOpen ? "blur-xs" : "blur-none"} min-h-screen flex flex-col w-10/12 items-center justify-center`}
     >
       {children}
     </div>

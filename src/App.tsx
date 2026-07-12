@@ -11,6 +11,14 @@ function App() {
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
+  function handleTap() {
+    if (isSidebarOpen) {
+      setIsSidebarOpen(false);
+    } else {
+      return;
+    }
+  }
+
   return (
     <div className="min-h-screen w-full flex flex-col items-center bg-primary text-text font-saira overflow-hidden">
       <Hero
@@ -19,11 +27,17 @@ function App() {
         projectsSectionRef={projectsSectionRef}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
+        handleTap={handleTap}
       />
-      <About aboutSectionRef={aboutSectionRef} isSidebarOpen={isSidebarOpen} />
+      <About
+        aboutSectionRef={aboutSectionRef}
+        isSidebarOpen={isSidebarOpen}
+        handleTap={handleTap}
+      />
       <Experience
         experienceSectionRef={experienceSectionRef}
         isSidebarOpen={isSidebarOpen}
+        handleTap={handleTap}
       />
       {/* <Projects projectsSectionRef={projectsSectionRef} /> */}
     </div>

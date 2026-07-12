@@ -14,15 +14,21 @@ import { ContentSection } from "./ContentSection";
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLDivElement | null>;
   isSidebarOpen: boolean;
+  handleTap: () => void;
 };
 
-export function About({ aboutSectionRef, isSidebarOpen }: AboutProps) {
+export function About({
+  aboutSectionRef,
+  isSidebarOpen,
+  handleTap,
+}: AboutProps) {
   const { t } = useTranslation();
   return (
     <ContentSection
       sectionRef={aboutSectionRef}
       isSidebarOpen={isSidebarOpen}
       id="about"
+      handleTap={handleTap}
     >
       <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
         <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
