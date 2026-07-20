@@ -22,7 +22,7 @@ export function Card({
       className="hover:cursor-pointer border rounded-2xl p-2 xl:border-transparent xl:rounded-none xl:p-0"
     >
       <li
-        className={`grid h-full xl:border-2 xl:border-transparent xl:hover:border-accent xl:hover:shadow-2xl xl:shadow-primary-900 xl:rounded-2xl xl:p-4 ${leftPanel ? "xl:grid-cols-2" : "xl:grid-cols-1"}  xl:gap-5`}
+        className={`grid h-full bg-primary xl:border-2 xl:border-text xl:hover:border-accent xl:hover:shadow-2xl xl:shadow-primary-900 xl:rounded-2xl xl:p-4 ${leftPanel ? "xl:grid-cols-2" : "xl:grid-cols-1"}  xl:gap-5`}
       >
         {leftPanel}
         <div className="flex flex-col flex-1 gap-4 pt-3 xl:pt-0">

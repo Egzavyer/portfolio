@@ -11,6 +11,7 @@ function App() {
   const aboutSectionRef = useRef<HTMLDivElement | null>(null);
   const experienceSectionRef = useRef<HTMLDivElement | null>(null);
   const projectsSectionRef = useRef<HTMLDivElement | null>(null);
+  const siteRef = useRef<HTMLDivElement>(null!);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   function handleTap() {
@@ -22,8 +23,11 @@ function App() {
   }
 
   return (
-    <Background>
-      <div className="min-h-screen w-full flex flex-col gap-5 items-center text-text font-saira overflow-hidden">
+    <Background siteRef={siteRef}>
+      <div
+        ref={siteRef}
+        className="min-h-screen w-full flex flex-col gap-5 items-center text-text font-saira overflow-hidden"
+      >
         <Hero
           aboutSectionRef={aboutSectionRef}
           experienceSectionRef={experienceSectionRef}

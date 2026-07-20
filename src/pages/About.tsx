@@ -31,7 +31,7 @@ export function About({
       handleTap={handleTap}
     >
       <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 w-11/12 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
-        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
+        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 bg-primary">
           <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
           <div className="border w-full border-text" />
           <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl">
@@ -40,7 +40,7 @@ export function About({
             <p>{t("about.blurb.line3")}</p>
           </div>
         </div>
-        <div className="flex justify-center items-center w-fit border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
+        <div className="flex justify-center items-center w-fit border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 bg-primary">
           <div className="flex flex-col gap-3 items-center">
             {/*TODO: possibly make this a carousel */}
             <h2 className="text-2xl xl:text-5xl">{t("about.techs.title")}</h2>
