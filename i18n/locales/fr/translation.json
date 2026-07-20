@@ -63,5 +63,8 @@
         "description": "Développé une application web de recommandation de restaurants basée sur l'IA qui propose des suggestions personnalisées grâce à des conversations en langage naturel. J'ai mis au point une interface utilisateur React adaptative et intégré des modèles d'apprentissage automatique ainsi que des modèles linguistiques de grande envergure afin de fournir des recommandations intelligentes."
       }
     }
+  },
+  "footer": {
+    "made": "Fait à la main et avec amour par Xavier Lermusieaux"
   }
 }
