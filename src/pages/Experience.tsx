@@ -66,7 +66,7 @@ export function Experience({
     >
       <div className="flex flex-col gap-15 w-10/12 items-center">
         <div className="flex flex-col gap-5 w-full">
-          <div className="text-3xl text-center pt-20 xl:text-6xl">
+          <div className="text-3xl text-center pt-28 xl:text-6xl">
             {t("experience.title")}
           </div>
           <div className="border w-full" />
