@@ -30,7 +30,7 @@ export function About({
       id="about"
       handleTap={handleTap}
     >
-      <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
+      <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 w-11/12 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
         <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900">
           <h1 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h1>
           <div className="border w-full border-text" />

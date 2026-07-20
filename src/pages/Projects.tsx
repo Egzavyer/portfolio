@@ -58,14 +58,14 @@ export function Projects({
       isSidebarOpen={isSidebarOpen}
       handleTap={handleTap}
     >
-      <div className="flex flex-col gap-15 w-10/12 items-center justify-center">
+      <div className="flex flex-col gap-15 w-11/12 items-center justify-center">
         <div className="flex flex-col gap-5 w-full">
           <div className="text-3xl text-center pt-28 xl:text-6xl">
             {t("projects.title")}
           </div>
           <div className="border w-full" />
         </div>
-        <ul className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:w-10/12">
+        <ul className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:w-11/12">
           {getProjects(t).map((proj) => {
             return <ProjectCard key={proj.name} {...proj} />;
           })}

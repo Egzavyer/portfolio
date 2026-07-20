@@ -64,14 +64,14 @@ export function Experience({
       isSidebarOpen={isSidebarOpen}
       handleTap={handleTap}
     >
-      <div className="flex flex-col gap-15 w-10/12 items-center">
+      <div className="flex flex-col gap-15 w-11/12 items-center">
         <div className="flex flex-col gap-5 w-full">
           <div className="text-3xl text-center pt-28 xl:text-6xl">
             {t("experience.title")}
           </div>
           <div className="border w-full" />
         </div>
-        <ul className="flex flex-col items-center justify-center gap-4 xl:w-10/12">
+        <ul className="flex flex-col items-center justify-center gap-4 xl:w-11/12">
           {getExperiences(t).map((exp) => {
             return <WorkExperience key={exp.company} {...exp} />;
           })}

@@ -20,7 +20,7 @@ export function ContentSection({
       onPointerDown={() => handleTap()}
       id={id}
       ref={sectionRef}
-      className={`${isSidebarOpen ? "blur-xs" : "blur-none"} min-h-screen flex flex-col w-10/12 items-center justify-center`}
+      className={`${isSidebarOpen ? "blur-xs" : "blur-none"} min-h-screen flex flex-col w-11/12 items-center justify-center`}
     >
       {children}
     </div>
