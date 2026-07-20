@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { Experience } from "./pages/Experience";
 import { Projects } from "./pages/Projects";
 import { Footer } from "./components/Footer";
+import { Background } from "./components/Background";
 
 function App() {
   const aboutSectionRef = useRef<HTMLDivElement | null>(null);
@@ -21,32 +22,34 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-5 items-center bg-primary text-text font-saira overflow-hidden">
-      <Hero
-        aboutSectionRef={aboutSectionRef}
-        experienceSectionRef={experienceSectionRef}
-        projectsSectionRef={projectsSectionRef}
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-        handleTap={handleTap}
-      />
-      <About
-        aboutSectionRef={aboutSectionRef}
-        isSidebarOpen={isSidebarOpen}
-        handleTap={handleTap}
-      />
-      <Experience
-        experienceSectionRef={experienceSectionRef}
-        isSidebarOpen={isSidebarOpen}
-        handleTap={handleTap}
-      />
-      <Projects
-        projectsSectionRef={projectsSectionRef}
-        isSidebarOpen={isSidebarOpen}
-        handleTap={handleTap}
-      />
-      <Footer />
-    </div>
+    <Background>
+      <div className="min-h-screen w-full flex flex-col gap-5 items-center text-text font-saira overflow-hidden">
+        <Hero
+          aboutSectionRef={aboutSectionRef}
+          experienceSectionRef={experienceSectionRef}
+          projectsSectionRef={projectsSectionRef}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+          handleTap={handleTap}
+        />
+        <About
+          aboutSectionRef={aboutSectionRef}
+          isSidebarOpen={isSidebarOpen}
+          handleTap={handleTap}
+        />
+        <Experience
+          experienceSectionRef={experienceSectionRef}
+          isSidebarOpen={isSidebarOpen}
+          handleTap={handleTap}
+        />
+        <Projects
+          projectsSectionRef={projectsSectionRef}
+          isSidebarOpen={isSidebarOpen}
+          handleTap={handleTap}
+        />
+        <Footer />
+      </div>
+    </Background>
   );
 }
 
