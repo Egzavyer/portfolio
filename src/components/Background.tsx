@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import { useDimensions } from "../hooks/useDimensions";
 import * as d3 from "d3-delaunay";
 
@@ -7,53 +7,99 @@ type BackgroundProps = {
   siteRef: RefObject<HTMLDivElement>;
 };
 
+type Particle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+};
+
 export function Background({ children, siteRef }: BackgroundProps) {
   const { height, width } = useDimensions(siteRef);
-  const [mousePos, setMousePos] = useState([0, 0]);
+
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const requestRef = useRef<number | null>(null);
+
+  const particles = useRef<Particle[]>([]);
+
+  const mousePos = useRef<[number, number]>([width / 2, height / 2]);
+
+  const createParticles = () => {
+    particles.current = Array.from({ length: 150 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+    }));
+  };
 
   useEffect(() => {
+    createParticles();
+
+    const animate = () => {
+      for (const particle of particles.current) {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        if (particle.x < 0) particle.x = width;
+        if (particle.x > width) particle.x = 0;
+
+        if (particle.y < 0) particle.y = height;
+        if (particle.y > height) particle.y = 0;
+      }
+
+      const points: [number, number][] = particles.current.map((p) => [
+        p.x,
+        p.y,
+      ]);
+
+      points.push(mousePos.current);
+
+      const delaunay = d3.Delaunay.from(points);
+
+      const voronoi = delaunay.voronoi([0, 0, width, height]);
+
+      pathRef.current?.setAttribute("d", voronoi.render());
+
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+
     const handleMouseMove = (event: MouseEvent) => {
-      setMousePos([event.pageX, event.pageY]);
+      if (!svgRef.current) return;
+
+      mousePos.current = [event.pageX, event.pageY];
     };
 
     window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
     };
-  }, []);
-
-  const seeds = useRef(
-    Array.from(
-      { length: 150 },
-      () => [Math.random(), Math.random()] as [number, number],
-    ),
-  );
-
-  const particles = seeds.current.map(
-    ([x, y]) => [x * width, y * height] as [number, number],
-  );
-
-  const delaunay = d3.Delaunay.from([...particles, mousePos] as [
-    number,
-    number,
-  ][]);
-  const voronoi = delaunay.voronoi([0, 0, width, height]);
-
-  voronoi.render();
-  const voronoiPath = (
-    <path
-      d={voronoi.render()}
-      stroke={"var(--color-accent)"}
-      fill={"var(--color-primary)"}
-    />
-  );
+  }, [width, height]);
 
   return (
     <div className="size-full">
-      <svg className="absolute bg-primary -z-10" width={width} height={height}>
-        {voronoiPath}
+      <svg
+        ref={svgRef}
+        className="absolute bg-primary -z-10"
+        width={width}
+        height={height}
+      >
+        <path
+          ref={pathRef}
+          stroke="var(--color-accent)"
+          fill="var(--color-primary)"
+          strokeWidth={2}
+        />
       </svg>
+
       {children}
     </div>
   );
