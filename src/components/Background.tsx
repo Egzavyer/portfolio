@@ -25,7 +25,7 @@ export function Background({ children, siteRef }: BackgroundProps) {
 
   const seeds = useRef(
     Array.from(
-      { length: 200 },
+      { length: 150 },
       () => [Math.random(), Math.random()] as [number, number],
     ),
   );
@@ -48,15 +48,11 @@ export function Background({ children, siteRef }: BackgroundProps) {
       fill={"var(--color-primary)"}
     />
   );
-  const pointsPath = (
-    <path d={delaunay.renderPoints()} stroke="dimgray" fill="dimgray" />
-  );
 
   return (
     <div className="size-full">
       <svg className="absolute bg-primary -z-10" width={width} height={height}>
         {voronoiPath}
-        {pointsPath}
       </svg>
       {children}
     </div>

@@ -71,7 +71,7 @@ export function Experience({
           </div>
           <div className="border w-full" />
         </div>
-        <ul className="flex flex-col items-center justify-center gap-4 xl:w-11/12">
+        <ul className="flex flex-col items-center justify-center gap-8 xl:w-11/12">
           {getExperiences(t).map((exp) => {
             return <WorkExperience key={exp.company} {...exp} />;
           })}
