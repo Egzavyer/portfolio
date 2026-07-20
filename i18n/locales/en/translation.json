@@ -44,6 +44,24 @@
     }
   },
   "projects": {
-    "title": "Projects"
+    "title": "Projects",
+    "project": {
+      "bingo": {
+        "oneliner": "A visual concurrency debugger for Go",
+        "description": "Built a cross-platform visual debugger for Go that helps developers inspect concurrent programs through an interactive interface. Designed the end-to-end architecture, including the debugging engine, WebSocket-based communication layer, and platform-specific backends for low-level runtime inspection."
+      },
+      "quickcv": {
+        "oneliner": "An optimized real-time object detection pipeline",
+        "description": "Developed an optimized computer vision pipeline for real-time vehicle detection using YOLOv8. Designed a two-stage inference architecture and applied model optimization techniques to significantly reduce CPU inference time while maintaining detection accuracy."
+      },
+      "webserver": {
+        "oneliner": "A lightweight HTTP web server in C++",
+        "description": "Built a lightweight HTTP web server in C++, implementing socket communication, HTTP request parsing, and connection management from scratch. Designed a modular architecture using object-oriented principles to support extensibility and maintainability."
+      },
+      "hungryai": {
+        "oneliner": "An intelligent restaurant recommendation system",
+        "description": "Built an AI-powered restaurant recommendation web application that provides personalized dining suggestions through natural language conversations. Developed a responsive React frontend and integrated machine learning models and large language models to deliver intelligent recommendations."
+      }
+    }
   }
 }

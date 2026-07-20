@@ -42,5 +42,8 @@
         "description": "Développement et maintenance d’outils internes et d’applications Salesforce pour soutenir des programmes de télécommunications à grande échelle. Automatisation des flux de travail à l’aide de Java, SQL, VBA et Salesforce, améliorant ainsi l’efficacité opérationnelle tout en collaborant avec les équipes d’ingénierie et les parties prenantes pour rationaliser la réalisation des projets."
       }
     }
+  },
+  "projects": {
+    "title": "Projets"
   }
 }
