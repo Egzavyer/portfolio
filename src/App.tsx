@@ -21,7 +21,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center bg-primary text-text font-saira overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col gap-5 items-center bg-primary text-text font-saira overflow-hidden">
       <Hero
         aboutSectionRef={aboutSectionRef}
         experienceSectionRef={experienceSectionRef}
