@@ -63,5 +63,8 @@
         "description": "Built an AI-powered restaurant recommendation web application that provides personalized dining suggestions through natural language conversations. Developed a responsive React frontend and integrated machine learning models and large language models to deliver intelligent recommendations."
       }
     }
+  },
+  "footer": {
+    "made": "Made by hand and with love by Xavier Lermusieaux"
   }
 }

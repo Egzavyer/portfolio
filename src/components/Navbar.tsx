@@ -105,7 +105,7 @@ export function Navbar({
         </div>
       ) : undefined}
       <div className="hidden justify-center items-center fixed w-full z-10 top-4 xl:flex">
-        <div className="flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary">
+        <div className="flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary-300">
           <div className="text-xl">
             <button
               className="hover:cursor-pointer hover:text-accent"

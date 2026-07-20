@@ -4,6 +4,7 @@ import { About } from "./pages/About";
 import { useRef, useState } from "react";
 import { Experience } from "./pages/Experience";
 import { Projects } from "./pages/Projects";
+import { Footer } from "./components/Footer";
 
 function App() {
   const aboutSectionRef = useRef<HTMLDivElement | null>(null);
@@ -44,6 +45,7 @@ function App() {
         isSidebarOpen={isSidebarOpen}
         handleTap={handleTap}
       />
+      <Footer />
     </div>
   );
 }
