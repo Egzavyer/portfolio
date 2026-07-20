@@ -60,7 +60,7 @@ export function Projects({
     >
       <div className="flex flex-col gap-15 w-10/12 items-center justify-center">
         <div className="flex flex-col gap-5 w-full">
-          <div className="text-3xl text-center pt-20 xl:text-6xl xl:pt-0">
+          <div className="text-3xl text-center pt-20 xl:text-6xl">
             {t("projects.title")}
           </div>
           <div className="border w-full" />

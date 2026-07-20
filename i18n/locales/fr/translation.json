@@ -44,6 +44,24 @@
     }
   },
   "projects": {
-    "title": "Projets"
+    "title": "Projets",
+    "project": {
+      "bingo": {
+        "oneliner": "Un débogueur visuel de concurrence pour Go",
+        "description": "Développé un débogueur visuel multiplateforme pour Go qui permet aux développeurs d'inspecter des programmes concurrents via une interface interactive. J'ai conçu l'architecture de bout en bout, notamment le moteur de débogage, la couche de communication basée sur WebSocket et les backends spécifiques à chaque plateforme pour l'inspection de bas niveau du runtime."
+      },
+      "quickcv": {
+        "oneliner": "Un pipeline optimisé de détection d'objets en temps réel",
+        "description": "Développé un pipeline de vision par ordinateur optimisé pour la détection en temps réel des véhicules à l'aide de YOLOv8. J'ai conçu une architecture d'inférence en deux étapes et appliqué des techniques d'optimisation du modèle afin de réduire considérablement le temps d'inférence du processeur tout en conservant la précision de la détection."
+      },
+      "webserver": {
+        "oneliner": "Un serveur web HTTP léger écrit en C++",
+        "description": "Développé de A à Z un serveur web HTTP léger en C++, en implémentant la communication par sockets, l'analyse des requêtes HTTP et la gestion des connexions. J'ai conçu une architecture modulaire selon les principes de la programmation orientée objet afin de favoriser l'évolutivité et la facilité de maintenance."
+      },
+      "hungryai": {
+        "oneliner": "Un système intelligent de recommandation de restaurants",
+        "description": "Développé une application web de recommandation de restaurants basée sur l'IA qui propose des suggestions personnalisées grâce à des conversations en langage naturel. J'ai mis au point une interface utilisateur React adaptative et intégré des modèles d'apprentissage automatique ainsi que des modèles linguistiques de grande envergure afin de fournir des recommandations intelligentes."
+      }
+    }
   }
 }
