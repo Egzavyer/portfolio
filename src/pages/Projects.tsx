@@ -65,7 +65,7 @@ export function Projects({
           </div>
           <div className="border w-full" />
         </div>
-        <ul className="grid grid-cols-1 gap-4 xl:grid-cols-2 xl:w-11/12">
+        <ul className="grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2 xl:w-11/12">
           {getProjects(t).map((proj) => {
             return <ProjectCard key={proj.name} {...proj} />;
           })}
