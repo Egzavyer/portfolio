@@ -1,28 +1,24 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useDimensions = (targetRef: React.RefObject<HTMLDivElement>) => {
-  const getDimensions = () => {
-    return {
-      width: targetRef.current ? targetRef.current.offsetWidth : 0,
-      height: targetRef.current ? targetRef.current.offsetHeight : 0,
-    };
-  };
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
-  const [dimensions, setDimensions] = useState(getDimensions);
-
-  useLayoutEffect(() => {
+  useEffect(() => {
     const target = targetRef.current;
     if (!target) return;
 
-    const handleResize = () => {
+    const observer = new ResizeObserver(([entry]) => {
+      if (!entry) return;
+      const borderBox = entry.borderBoxSize[0];
       setDimensions({
-        width: target.offsetWidth,
-        height: target.offsetHeight,
+        width: borderBox?.inlineSize ?? entry.contentRect.width,
+        height: borderBox?.blockSize ?? entry.contentRect.height,
       });
-    };
-    handleResize();
+    });
 
-    const observer = new ResizeObserver(handleResize);
     observer.observe(target);
     return () => observer.disconnect();
   }, [targetRef]);

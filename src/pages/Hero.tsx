@@ -53,8 +53,8 @@ export function Hero({
         className={`relative flex flex-1 flex-col items-center justify-center px-5 py-28 text-center sm:px-8 ${isSidebarOpen ? "pointer-events-none blur-xs" : "blur-none"}`}
       >
         <m.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 28 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="flex max-w-5xl flex-col items-center"
         >
