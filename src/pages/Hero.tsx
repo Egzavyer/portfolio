@@ -72,16 +72,8 @@ export function Hero({
             {t("hero.tagline")}
           </p>
         </m.div>
-        <m.button
-          type="button"
-          onClick={() =>
-            aboutSectionRef.current?.scrollIntoView({
-              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-                .matches
-                ? "auto"
-                : "smooth",
-            })
-          }
+        <m.a
+          href="#about"
           aria-label={t("navbar.about")}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -95,7 +87,7 @@ export function Hero({
           >
             <IconArrowDown stroke={1.5} />
           </m.span>
-        </m.button>
+        </m.a>
       </div>
     </header>
   );

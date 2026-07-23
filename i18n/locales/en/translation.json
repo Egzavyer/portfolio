@@ -90,7 +90,9 @@
     "eyebrow": "Get in touch",
     "title": "Let's build something interesting.",
     "description": "I'm especially interested in full-stack engineering, developer tools, robotics, systems programming, and applied machine learning. If you're working on a difficult engineering problem, I'd love to hear about it.",
-    "email": "Email me"
+    "email": "Email me",
+    "copyEmail": "Copy email",
+    "copied": "Copied"
   },
   "footer": {
     "made": "Made with love by Xavier Lermusieaux"

@@ -2,6 +2,24 @@
 <html lang="en" class="scroll-smooth motion-reduce:scroll-auto">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("theme");
+        const theme =
+          savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+        document.documentElement.dataset.theme = theme;
+
+        const savedLanguage = localStorage.getItem("language");
+        document.documentElement.lang =
+          savedLanguage === "fr" ? "fr" : "en";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Xavier Lermusieaux — Software Engineering Student</title>

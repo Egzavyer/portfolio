@@ -4,6 +4,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type MouseEvent,
   type Dispatch,
   type RefObject,
   type SetStateAction,
@@ -21,7 +22,13 @@ type NavbarProps = {
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const scrollToSection = (sectionRef: RefObject<HTMLElement | null>) => {
+type SectionId = "home" | "about" | "experience" | "projects" | "contact";
+
+const scrollToSection = (
+  sectionRef: RefObject<HTMLElement | null>,
+  sectionId: SectionId,
+) => {
+  window.history.replaceState(null, "", `#${sectionId}`);
   sectionRef.current?.scrollIntoView({
     behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? "auto"
@@ -47,13 +54,95 @@ export function Navbar({
       ? "light"
       : "dark";
   });
-  const [language, setLanguage] = useState<"EN" | "FR">("EN");
+  const [language, setLanguage] = useState<"EN" | "FR">(() =>
+    i18n.language === "fr" ? "FR" : "EN",
+  );
+  const [activeSection, setActiveSection] = useState<SectionId>("home");
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
+  const navigationTargetRef = useRef<SectionId | null>(null);
+  const navigationUnlockRef = useRef<number | null>(null);
+
+  const activateSection = (sectionId: SectionId) => {
+    navigationTargetRef.current = sectionId;
+    setActiveSection(sectionId);
+    if (navigationUnlockRef.current !== null) {
+      window.clearTimeout(navigationUnlockRef.current);
+    }
+    navigationUnlockRef.current = window.setTimeout(() => {
+      navigationTargetRef.current = null;
+      navigationUnlockRef.current = null;
+    }, 1400);
+  };
+
+  useEffect(
+    () => () => {
+      if (navigationUnlockRef.current !== null) {
+        window.clearTimeout(navigationUnlockRef.current);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const sectionIds: SectionId[] = [
+      "home",
+      "about",
+      "experience",
+      "projects",
+      "contact",
+    ];
+    const observed = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const navigationTarget = navigationTargetRef.current;
+        if (navigationTarget) {
+          const reachedTarget = entries.some(
+            (entry) =>
+              entry.isIntersecting && entry.target.id === navigationTarget,
+          );
+          if (reachedTarget) {
+            navigationTargetRef.current = null;
+            if (navigationUnlockRef.current !== null) {
+              window.clearTimeout(navigationUnlockRef.current);
+              navigationUnlockRef.current = null;
+            }
+            setActiveSection(navigationTarget);
+          }
+          return;
+        }
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const id = visible[0]?.target.id as SectionId | undefined;
+        if (id) setActiveSection(id);
+      },
+      {
+        rootMargin: "-25% 0px -60% 0px",
+        threshold: [0, 0.1, 0.25],
+      },
+    );
+    const observeSections = () => {
+      for (const id of sectionIds) {
+        const section = document.getElementById(id);
+        if (section && !observed.has(section)) {
+          observed.add(section);
+          observer.observe(section);
+        }
+      }
+    };
+    observeSections();
+    const mutationObserver = new MutationObserver(observeSections);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     if (!isSidebarOpen) return;
@@ -105,10 +194,12 @@ export function Navbar({
       setLanguage("FR");
       i18n.changeLanguage("fr");
       document.documentElement.lang = "fr";
+      localStorage.setItem("language", "fr");
     } else {
       setLanguage("EN");
       i18n.changeLanguage("en");
       document.documentElement.lang = "en";
+      localStorage.setItem("language", "en");
     }
   }
 
@@ -165,22 +256,28 @@ export function Navbar({
         >
           <div className="flex flex-col items-center justify-center gap-12 text-center">
             <div className="text-xl font-semibold tracking-tight">
-              <button
+              <a
+                href="#home"
                 className="rounded-lg px-3 py-2 transition-colors hover:text-accent"
-                type="button"
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
+                  activateSection("home");
                   setIsSidebarOpen(false);
-                  requestAnimationFrame(() => scrollToSection(heroSectionRef));
+                  requestAnimationFrame(() =>
+                    scrollToSection(heroSectionRef, "home"),
+                  );
                 }}
               >
                 Xavier Lermusieaux
-              </button>
+              </a>
             </div>
             <NavbarLinks
               aboutSectionRef={aboutSectionRef}
               experienceSectionRef={experienceSectionRef}
               projectsSectionRef={projectsSectionRef}
               contactSectionRef={contactSectionRef}
+              activeSection={activeSection}
+              onActivate={activateSection}
               onNavigate={() => setIsSidebarOpen(false)}
             />
             <NavbarButtons
@@ -199,19 +296,25 @@ export function Navbar({
       >
         <div className="flex w-full max-w-7xl items-center justify-between rounded-2xl border border-text/15 bg-primary-300/85 px-5 py-3 shadow-xl shadow-primary-900/25 backdrop-blur-2xl">
           <div className="text-lg font-semibold tracking-tight">
-            <button
+            <a
+              href="#home"
               className="rounded-lg px-2 py-2 transition-colors hover:text-accent"
-              type="button"
-              onClick={() => scrollToSection(heroSectionRef)}
+              onClick={(event) => {
+                event.preventDefault();
+                activateSection("home");
+                scrollToSection(heroSectionRef, "home");
+              }}
             >
               Xavier Lermusieaux
-            </button>
+            </a>
           </div>
           <NavbarLinks
             aboutSectionRef={aboutSectionRef}
             experienceSectionRef={experienceSectionRef}
             projectsSectionRef={projectsSectionRef}
             contactSectionRef={contactSectionRef}
+            activeSection={activeSection}
+            onActivate={activateSection}
           />
           <NavbarButtons
             theme={theme}
@@ -230,6 +333,8 @@ type NavbarLinksProps = {
   experienceSectionRef: RefObject<HTMLElement | null>;
   projectsSectionRef: RefObject<HTMLElement | null>;
   contactSectionRef: RefObject<HTMLElement | null>;
+  activeSection: SectionId;
+  onActivate: (sectionId: SectionId) => void;
   onNavigate?: () => void;
 };
 
@@ -238,6 +343,8 @@ function NavbarLinks({
   experienceSectionRef,
   projectsSectionRef,
   contactSectionRef,
+  activeSection,
+  onActivate,
   onNavigate,
 }: NavbarLinksProps) {
   const { t } = useTranslation();
@@ -246,22 +353,34 @@ function NavbarLinks({
       <ul className="flex flex-col gap-8 xl:flex-row xl:gap-2">
         <NavbarLink
           label={t("navbar.about")}
+          sectionId="about"
           sectionRef={aboutSectionRef}
+          isActive={activeSection === "about"}
+          onActivate={onActivate}
           onNavigate={onNavigate}
         />
         <NavbarLink
           label={t("navbar.experience")}
+          sectionId="experience"
           sectionRef={experienceSectionRef}
+          isActive={activeSection === "experience"}
+          onActivate={onActivate}
           onNavigate={onNavigate}
         />
         <NavbarLink
           label={t("navbar.projects")}
+          sectionId="projects"
           sectionRef={projectsSectionRef}
+          isActive={activeSection === "projects"}
+          onActivate={onActivate}
           onNavigate={onNavigate}
         />
         <NavbarLink
           label={t("navbar.contact")}
+          sectionId="contact"
           sectionRef={contactSectionRef}
+          isActive={activeSection === "contact"}
+          onActivate={onActivate}
           onNavigate={onNavigate}
         />
       </ul>
@@ -271,23 +390,42 @@ function NavbarLinks({
 
 type NavbarLinkProps = {
   label: string;
+  sectionId: SectionId;
   sectionRef: RefObject<HTMLElement | null>;
+  isActive: boolean;
+  onActivate: (sectionId: SectionId) => void;
   onNavigate?: () => void;
 };
 
-function NavbarLink({ label, sectionRef, onNavigate }: NavbarLinkProps) {
+function NavbarLink({
+  label,
+  sectionId,
+  sectionRef,
+  isActive,
+  onActivate,
+  onNavigate,
+}: NavbarLinkProps) {
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    onActivate(sectionId);
+    onNavigate?.();
+    requestAnimationFrame(() => scrollToSection(sectionRef, sectionId));
+  };
+
   return (
     <li>
-      <button
-        className="rounded-lg px-4 py-2 transition-colors hover:bg-text/5 hover:text-accent"
-        type="button"
-        onClick={() => {
-          onNavigate?.();
-          requestAnimationFrame(() => scrollToSection(sectionRef));
-        }}
+      <a
+        href={`#${sectionId}`}
+        aria-current={isActive ? "location" : undefined}
+        className={`block rounded-lg px-4 py-2 transition-colors hover:bg-text/5 hover:text-accent ${
+          isActive
+            ? "bg-text/8 text-accent"
+            : ""
+        }`}
+        onClick={handleClick}
       >
         {label}
-      </button>
+      </a>
     </li>
   );
 }

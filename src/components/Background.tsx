@@ -54,12 +54,45 @@ export function Background({ children, siteRef }: BackgroundProps) {
       return;
     }
 
-    const handleMouseMove = (event: MouseEvent) => {
+    const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const connection = (
+      navigator as Navigator & { connection?: { saveData?: boolean } }
+    ).connection;
+    const savesData = connection?.saveData === true;
+    const isConstrained = hasCoarsePointer || width < 768;
+    const particleCount = savesData ? 40 : isConstrained ? 75 : 150;
+    const frameInterval = isConstrained ? 1000 / 30 : 0;
+
+    const handlePointerMove = (event: PointerEvent) => {
       if (!svgRef.current) return;
 
       mousePos.current = [event.pageX, event.pageY];
     };
     let stopped = false;
+    let lastFrame = 0;
+    let animate: ((time: number) => void) | undefined;
+
+    const startAnimation = () => {
+      if (
+        stopped ||
+        document.hidden ||
+        savesData ||
+        requestRef.current !== null ||
+        !animate
+      ) {
+        return;
+      }
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden && requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
+      } else {
+        startAnimation();
+      }
+    };
 
     const initialize = async () => {
       const { Delaunay } = await import("d3-delaunay");
@@ -79,15 +112,22 @@ export function Background({ children, siteRef }: BackgroundProps) {
 
       const random = createSeededRandom(0x06032005);
       const initialDimensions = dimensionsRef.current;
-      particles.current = Array.from({ length: 150 }, () => ({
+      particles.current = Array.from({ length: particleCount }, () => ({
         x: random() * initialDimensions.width,
         y: random() * initialDimensions.height,
         vx: (random() - 0.5) * 0.5,
         vy: (random() - 0.5) * 0.5,
       }));
 
-      const animate = () => {
+      animate = (time: number) => {
         if (stopped) return;
+        requestRef.current = null;
+        if (document.hidden) return;
+        if (frameInterval && time - lastFrame < frameInterval) {
+          requestRef.current = requestAnimationFrame(animate!);
+          return;
+        }
+        lastFrame = time;
         const currentDimensions = dimensionsRef.current;
         for (const particle of particles.current) {
           particle.x += particle.vx;
@@ -116,23 +156,30 @@ export function Background({ children, siteRef }: BackgroundProps) {
           hasRenderedRef.current = true;
           svgRef.current.style.opacity = "0.35";
         }
-        requestRef.current = requestAnimationFrame(animate);
+        if (!savesData) {
+          requestRef.current = requestAnimationFrame(animate!);
+        }
       };
 
-      window.addEventListener("mousemove", handleMouseMove);
+      if (!hasCoarsePointer) {
+        window.addEventListener("pointermove", handlePointerMove);
+      }
+      document.addEventListener("visibilitychange", handleVisibilityChange);
       requestRef.current = requestAnimationFrame(animate);
     };
     void initialize();
 
     return () => {
       stopped = true;
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
 
-      if (requestRef.current) {
+      if (requestRef.current !== null) {
         cancelAnimationFrame(requestRef.current);
+        requestRef.current = null;
       }
     };
-  }, []);
+  }, [width]);
 
   return (
     <div className="relative isolate size-full overflow-x-clip bg-primary">

@@ -90,7 +90,9 @@
     "eyebrow": "Contact",
     "title": "Construisons quelque chose d’intéressant.",
     "description": "Je m’intéresse particulièrement au développement full-stack, aux outils pour développeurs, à la robotique, à la programmation système et à l’apprentissage automatique appliqué. Si vous travaillez sur un problème d’ingénierie difficile, j’aimerais en discuter.",
-    "email": "M’écrire"
+    "email": "M’écrire",
+    "copyEmail": "Copier l’adresse",
+    "copied": "Copiée"
   },
   "footer": {
     "made": "Fait avec amour par Xavier Lermusieaux"

@@ -1,11 +1,13 @@
 import {
   IconBrandGithub,
   IconBrandLinkedin,
+  IconCheck,
+  IconCopy,
   IconMail,
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
-import type { RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 
 type ContactProps = {
   sectionRef: RefObject<HTMLElement | null>;
@@ -13,6 +15,18 @@ type ContactProps = {
 
 export function Contact({ sectionRef }: ContactProps) {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timeout = window.setTimeout(() => setCopied(false), 2500);
+    return () => window.clearTimeout(timeout);
+  }, [copied]);
+
+  const copyEmail = async () => {
+    await navigator.clipboard.writeText("xavier.lermusieaux@gmail.com");
+    setCopied(true);
+  };
 
   return (
     <section
@@ -53,6 +67,22 @@ export function Contact({ sectionRef }: ContactProps) {
                 <IconMail aria-hidden="true" className="size-5" />
                 {t("contact.email")}
               </a>
+              <button
+                type="button"
+                onClick={() => void copyEmail()}
+                className="inline-flex size-12 items-center justify-center rounded-xl border border-text/25 transition-colors hover:border-accent hover:text-accent"
+                aria-live="polite"
+                aria-label={t(
+                  copied ? "contact.copied" : "contact.copyEmail",
+                )}
+                title={t(copied ? "contact.copied" : "contact.copyEmail")}
+              >
+                {copied ? (
+                  <IconCheck aria-hidden="true" className="size-5" />
+                ) : (
+                  <IconCopy aria-hidden="true" className="size-5" />
+                )}
+              </button>
               <a
                 href="https://github.com/Egzavyer"
                 target="_blank"
