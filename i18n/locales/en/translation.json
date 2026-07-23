@@ -14,8 +14,9 @@
     "useLightTheme": "Use light theme"
   },
   "hero": {
-    "welcome": "Welcome! My name is Xavier Lermusieaux",
-    "subtitle": "Tinkerer | Programmer | Philomath"
+    "eyebrow": "Software Engineer",
+    "welcome": "Xavier Lermusieaux",
+    "tagline": "Tinkerer · Programmer · Philomath"
   },
   "about": {
     "blurb": {
@@ -53,24 +54,42 @@
   },
   "projects": {
     "title": "Projects",
+    "featured": "Featured project",
+    "viewSource": "Explore the source",
     "project": {
       "bingo": {
         "oneliner": "A visual concurrency debugger for Go",
-        "description": "Built a cross-platform visual debugger for Go that helps developers inspect concurrent programs through an interactive interface. Designed the end-to-end architecture, including the debugging engine, WebSocket-based communication layer, and platform-specific backends for low-level runtime inspection."
+        "description": "An in-progress cross-platform debugger exploring how developers can inspect goroutines, channels, mutexes, and runtime events. The project currently focuses on the low-level debugging engine, communication protocol, and client architecture.",
+        "runtimeDebugging": "Go runtime debugging",
+        "protocolDesign": "Debugger protocol design",
+        "stars": "GitHub stars",
+        "crossPlatform": "Cross-platform",
+        "platforms": "Terminal and editors",
+        "core": "Core language"
       },
       "quickcv": {
         "oneliner": "An optimized real-time object detection pipeline",
-        "description": "Developed an optimized computer vision pipeline for real-time vehicle detection using YOLOv8. Designed a two-stage inference architecture and applied model optimization techniques to significantly reduce CPU inference time while maintaining detection accuracy."
+        "description": "Designed a confidence-gated, two-stage YOLOv8 pipeline for CPU vehicle detection. Uncertain detections are selectively escalated to a stronger model, improving difficult predictions without paying the full inference cost on every object.",
+        "performance": "47% lower CPU latency",
+        "escalation": "32% escalation rate"
       },
       "webserver": {
         "oneliner": "A lightweight HTTP web server in C++",
-        "description": "Built a lightweight HTTP web server in C++, implementing socket communication, HTTP request parsing, and connection management from scratch. Designed a modular architecture using object-oriented principles to support extensibility and maintainability."
+        "description": "Implemented socket communication, HTTP request parsing, connection management, and static-file serving in C++ to understand the protocol below the framework layer.",
+        "fromScratch": "Protocol built from scratch"
       },
       "hungryai": {
         "oneliner": "An intelligent restaurant recommendation system",
-        "description": "Built an AI-powered restaurant recommendation web application that provides personalized dining suggestions through natural language conversations. Developed a responsive React frontend and integrated machine learning models and large language models to deliver intelligent recommendations."
+        "description": "Co-built a restaurant discovery experience that turns sketches into real-time recommendations, combining a responsive React interface with computer vision and language models.",
+        "award": "Winner · WaffleHacks 2023"
       }
     }
+  },
+  "contact": {
+    "eyebrow": "Get in touch",
+    "title": "Let's build something interesting.",
+    "description": "I'm especially interested in full-stack engineering, developer tools, robotics, systems programming, and applied machine learning. If you're working on a difficult engineering problem, I'd love to hear about it.",
+    "email": "Email me"
   },
   "footer": {
     "made": "Made with love by Xavier Lermusieaux"

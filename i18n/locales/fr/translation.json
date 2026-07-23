@@ -14,8 +14,9 @@
     "useLightTheme": "Utiliser le thème clair"
   },
   "hero": {
-    "welcome": "Bienvenue! Je m'appelle Xavier Lermusieaux",
-    "subtitle": "Bricoleur | Programmeur | Philomathe"
+    "eyebrow": "Ingénieur logiciel",
+    "welcome": "Xavier Lermusieaux",
+    "tagline": "Bricoleur · Programmeur · Philomathe"
   },
   "about": {
     "blurb": {
@@ -53,24 +54,42 @@
   },
   "projects": {
     "title": "Projets",
+    "featured": "Projet vedette",
+    "viewSource": "Explorer le code source",
     "project": {
       "bingo": {
         "oneliner": "Un débogueur visuel de concurrence pour Go",
-        "description": "Développé un débogueur visuel multiplateforme pour Go qui permet aux développeurs d'inspecter des programmes concurrents via une interface interactive. J'ai conçu l'architecture de bout en bout, notamment le moteur de débogage, la couche de communication basée sur WebSocket et les backends spécifiques à chaque plateforme pour l'inspection de bas niveau du runtime."
+        "description": "Un débogueur multiplateforme en cours de développement qui explore comment inspecter les goroutines, canaux, mutex et événements d’exécution. Le projet se concentre actuellement sur le moteur de débogage bas niveau, le protocole de communication et l’architecture client.",
+        "runtimeDebugging": "Débogage du runtime Go",
+        "protocolDesign": "Conception du protocole de débogage",
+        "stars": "Étoiles GitHub",
+        "crossPlatform": "Multiplateforme",
+        "platforms": "Terminal et éditeurs",
+        "core": "Langage principal"
       },
       "quickcv": {
         "oneliner": "Un pipeline optimisé de détection d'objets en temps réel",
-        "description": "Développé un pipeline de vision par ordinateur optimisé pour la détection en temps réel des véhicules à l'aide de YOLOv8. J'ai conçu une architecture d'inférence en deux étapes et appliqué des techniques d'optimisation du modèle afin de réduire considérablement le temps d'inférence du processeur tout en conservant la précision de la détection."
+        "description": "Conception d’un pipeline YOLOv8 en deux étapes pour la détection de véhicules sur processeur. Les détections incertaines sont transmises à un modèle plus puissant afin d’améliorer les cas difficiles sans payer le coût complet pour chaque objet.",
+        "performance": "47 % moins de latence CPU",
+        "escalation": "32 % de détections escaladées"
       },
       "webserver": {
         "oneliner": "Un serveur web HTTP léger écrit en C++",
-        "description": "Développé de A à Z un serveur web HTTP léger en C++, en implémentant la communication par sockets, l'analyse des requêtes HTTP et la gestion des connexions. J'ai conçu une architecture modulaire selon les principes de la programmation orientée objet afin de favoriser l'évolutivité et la facilité de maintenance."
+        "description": "Implémentation en C++ de la communication par sockets, de l’analyse des requêtes HTTP, de la gestion des connexions et du service de fichiers statiques afin de comprendre le protocole sous les frameworks.",
+        "fromScratch": "Protocole construit de zéro"
       },
       "hungryai": {
         "oneliner": "Un système intelligent de recommandation de restaurants",
-        "description": "Développé une application web de recommandation de restaurants basée sur l'IA qui propose des suggestions personnalisées grâce à des conversations en langage naturel. J'ai mis au point une interface utilisateur React adaptative et intégré des modèles d'apprentissage automatique ainsi que des modèles linguistiques de grande envergure afin de fournir des recommandations intelligentes."
+        "description": "Co-création d’une expérience de découverte de restaurants qui transforme des croquis en recommandations en temps réel, avec une interface React, de la vision par ordinateur et des modèles de langage.",
+        "award": "Gagnant · WaffleHacks 2023"
       }
     }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Construisons quelque chose d’intéressant.",
+    "description": "Je m’intéresse particulièrement au développement full-stack, aux outils pour développeurs, à la robotique, à la programmation système et à l’apprentissage automatique appliqué. Si vous travaillez sur un problème d’ingénierie difficile, j’aimerais en discuter.",
+    "email": "M’écrire"
   },
   "footer": {
     "made": "Fait avec amour par Xavier Lermusieaux"

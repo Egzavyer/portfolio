@@ -8,6 +8,7 @@ type CardProps = {
   description: string;
   leftPanel?: React.ReactNode;
   technologies: string[];
+  highlights?: string[];
 };
 
 export function Card({
@@ -17,6 +18,7 @@ export function Card({
   subtitle,
   description,
   technologies,
+  highlights,
 }: CardProps) {
   const reduceMotion = useReducedMotion();
   return (
@@ -69,6 +71,19 @@ export function Card({
             </div>
 
             <p className="wrap-break-word leading-relaxed text-text/85">{description}</p>
+
+            {highlights && (
+              <ul className="flex flex-wrap gap-2" aria-label="Project highlights">
+                {highlights.map((highlight) => (
+                  <li
+                    key={highlight}
+                    className="rounded-lg border border-text/15 bg-primary-300/60 px-3 py-1.5 text-sm font-semibold text-text/80"
+                  >
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <ul className="mt-auto flex min-w-0 flex-wrap gap-2 pt-2">
               {technologies.map((tech) => (

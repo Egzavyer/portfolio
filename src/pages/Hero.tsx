@@ -60,11 +60,14 @@ export function Hero({
             aria-hidden="true"
             className="mb-7 h-1 w-16 rounded-full bg-accent sm:w-24"
           />
+          <p className="mb-5 font-semibold uppercase tracking-[0.2em] text-accent">
+            {t("hero.eyebrow")}
+          </p>
           <h1 className="text-balance text-[clamp(2.75rem,8vw,6.5rem)] font-semibold leading-[0.98] tracking-[-0.045em]">
             {t("hero.welcome")}
           </h1>
-          <p className="mt-7 text-balance text-[clamp(1.1rem,2.5vw,1.75rem)] font-light tracking-[0.12em] text-text/80">
-            {t("hero.subtitle")}
+          <p className="mt-7 text-sm uppercase tracking-[0.18em] text-text/60 sm:text-base">
+            {t("hero.tagline")}
           </p>
         </motion.div>
         <motion.button

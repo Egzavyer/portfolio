@@ -6,6 +6,7 @@ import { Experience } from "./pages/Experience";
 import { Projects } from "./pages/Projects";
 import { Footer } from "./components/Footer";
 import { Background } from "./components/Background";
+import { Contact } from "./components/Contact";
 
 function App() {
   const aboutSectionRef = useRef<HTMLElement | null>(null);
@@ -58,6 +59,7 @@ function App() {
             isSidebarOpen={isSidebarOpen}
             handleTap={handleTap}
           />
+          <Contact />
         </main>
         <Footer />
       </div>

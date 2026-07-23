@@ -13,15 +13,24 @@ function getProjects(
       name: "BinGo",
       oneliner: t("projects.project.bingo.oneliner"),
       description: t("projects.project.bingo.description"),
-      technologies: ["Go", "Websockets", "Low-Level", "Ginkgo"],
+      technologies: ["Go", "Delve", "WebSockets", "Ginkgo"],
       url: "https://github.com/bingosuite/bingo",
+      highlights: [
+        t("projects.project.bingo.runtimeDebugging"),
+        t("projects.project.bingo.protocolDesign"),
+      ],
     },
     {
       name: "QuickCV",
       oneliner: t("projects.project.quickcv.oneliner"),
       description: t("projects.project.quickcv.description"),
-      technologies: ["Pytorch", "YOLOv8", "Machine Learning", "Python"],
+      technologies: ["PyTorch", "YOLOv8", "OpenVINO", "Python"],
       url: "https://github.com/Egzavyer/QuickCV",
+      highlights: [
+        "0.946 mAP@0.5",
+        t("projects.project.quickcv.performance"),
+        t("projects.project.quickcv.escalation"),
+      ],
     },
     {
       name: "C++ WebServer",
@@ -29,6 +38,7 @@ function getProjects(
       description: t("projects.project.webserver.description"),
       technologies: ["C++", "Winsock", "Low-Level", "HTTP"],
       url: "https://github.com/Egzavyer/http-server",
+      highlights: [t("projects.project.webserver.fromScratch")],
     },
     {
       name: "Hungry.ai",
@@ -36,6 +46,7 @@ function getProjects(
       description: t("projects.project.hungryai.description"),
       technologies: ["React.js", "Tensorflow", "Applied ML", "Tailwind"],
       url: "https://github.com/xsachax/hungry.ai_waffle-hacks-2023",
+      highlights: [t("projects.project.hungryai.award")],
     },
   ];
 }
@@ -84,6 +95,7 @@ type ProjectCardProps = {
   description: string;
   technologies: string[];
   url: string;
+  highlights?: string[];
 };
 
 function ProjectCard({
@@ -92,6 +104,7 @@ function ProjectCard({
   description,
   technologies,
   url,
+  highlights,
 }: ProjectCardProps) {
   return (
     <Card
@@ -100,6 +113,7 @@ function ProjectCard({
       subtitle={oneliner}
       description={description}
       technologies={technologies}
+      highlights={highlights}
     />
   );
 }
