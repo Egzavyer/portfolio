@@ -10,6 +10,7 @@ import Pytorch from "../assets/icons/pytorch.svg?react";
 import Cpp from "../assets/icons/cpp.svg?react";
 import Linux from "../assets/icons/linux-original.svg?react";
 import { ContentSection } from "../components/ContentSection";
+import { motion } from "motion/react";
 
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLDivElement | null>;
@@ -44,7 +45,7 @@ export function About({
           <div className="flex flex-col gap-3 items-center">
             {/*TODO: possibly make this a carousel */}
             <h2 className="text-2xl xl:text-5xl">{t("about.techs.title")}</h2>
-            <ul className="grid grid-cols-3 gap-5">
+            <ul className="grid grid-cols-3 gap-7 items-stretch">
               <TechIcon Icon={Go} url="https://go.dev/" label="Go" />
               <TechIcon Icon={Cpp} url="https://cplusplus.com/" label="C++" />
               <TechIcon Icon={Rust} url="https://rust-lang.org/" label="Rust" />
@@ -90,15 +91,17 @@ type TechIconProps = {
 
 function TechIcon({ Icon, url, label }: TechIconProps) {
   return (
-    <li className="aspect-square">
-      <a
-        href={url}
-        target="_blank"
-        className="rounded-2xl border border-transparent hover:border-text hover:cursor-pointer hover:shadow-2xl shadow-primary-900 flex flex-col gap-2 items-center justify-center"
+    <li>
+      <motion.button
+        className="size-24 flex flex-col items-center justify-center gap-2"
+        whileHover={{ scale: 1.3 }}
+        whileTap={{ scale: 0.9 }}
       >
-        <Icon width={70} height={70} />
-        {label}
-      </a>
+        <a href={url} target="_blank">
+          <Icon width={70} height={70} />
+          {label}
+        </a>
+      </motion.button>
     </li>
   );
 }

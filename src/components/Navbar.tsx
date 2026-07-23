@@ -7,6 +7,7 @@ import {
   type SetStateAction,
 } from "react";
 import i18n from "../../i18n/i18n";
+import { motion, type Variants } from "motion/react";
 
 type NavbarProps = {
   heroSectionRef: RefObject<HTMLDivElement | null>;
@@ -55,6 +56,23 @@ export function Navbar({
     }
   }
 
+  const sidebarVariants: Variants = {
+    open: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 40,
+      },
+    },
+    closed: {
+      x: "100%",
+      opacity: 0,
+      transition: { type: "spring", stiffness: 300, damping: 30 },
+    },
+  };
+
   return (
     <div>
       <div className="flex justify-end fixed z-11 top-5 right-2 xl:hidden">
@@ -79,7 +97,12 @@ export function Navbar({
         </div>
       </div>
       {isSidebarOpen ? (
-        <div className="fixed z-10 w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden">
+        <motion.div
+          initial="closed"
+          animate={isSidebarOpen ? "open" : "closed"}
+          variants={sidebarVariants}
+          className="fixed z-10 w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden"
+        >
           <div className="flex justify-center flex-col gap-12 items-center text-center">
             <div className="text-xl">
               <button
@@ -102,7 +125,7 @@ export function Navbar({
               toggleTheme={toggleTheme}
             />
           </div>
-        </div>
+        </motion.div>
       ) : undefined}
       <div className="hidden justify-center items-center fixed w-full z-10 top-4 xl:flex">
         <div className="flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary-300">

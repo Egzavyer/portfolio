@@ -10,7 +10,7 @@ import type { ForwardRefExoticComponent, RefAttributes } from "react";
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <div className="w-full h-32 bg-primary-300 flex flex-col items-center justify-center gap-2">
+    <div className="w-full h-32 bg-primary-300 flex flex-col items-center justify-center gap-2 mt-5">
       <h1 className="font-semibold">{t("footer.made")}</h1>
       <ul className="flex flex-row gap-2">
         <FooterLink
