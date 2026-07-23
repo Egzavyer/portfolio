@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ContentSection } from "../components/ContentSection";
 import { Card } from "../components/Card";
 import type { TFunction } from "i18next";
+import { Reveal } from "../components/Reveal";
 
 function getProjects(
   t: TFunction<"translation", undefined>,
@@ -58,14 +59,16 @@ export function Projects({
       isSidebarOpen={isSidebarOpen}
       handleTap={handleTap}
     >
-      <div className="flex flex-col gap-15 w-11/12 items-center justify-center">
-        <div className="flex flex-col gap-5 w-full">
-          <h2 className="text-3xl text-center pt-28 xl:text-6xl">
-            {t("projects.title")}
-          </h2>
-          <div aria-hidden="true" className="border w-full" />
-        </div>
-        <ul className="grid grid-cols-1 items-stretch gap-10 xl:grid-cols-2 xl:w-11/12">
+      <div className="flex w-full max-w-7xl flex-col items-center justify-center gap-8 sm:gap-10">
+        <Reveal className="w-full">
+          <div className="flex flex-col items-center text-center">
+            <div aria-hidden="true" className="mb-5 h-1 w-14 rounded-full bg-accent" />
+            <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              {t("projects.title")}
+            </h2>
+          </div>
+        </Reveal>
+        <ul className="grid w-full grid-cols-1 items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
           {getProjects(t).map((proj) => {
             return <ProjectCard key={proj.name} {...proj} />;
           })}

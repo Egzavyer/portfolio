@@ -10,9 +10,10 @@ import type { ForwardRefExoticComponent, RefAttributes } from "react";
 export function Footer() {
   const { t } = useTranslation();
   return (
-    <footer className="w-full min-h-32 bg-primary-300 flex flex-col items-center justify-center gap-2 mt-5 px-4 text-center">
-      <p className="font-semibold">{t("footer.made")}</p>
-      <ul className="flex flex-row gap-2">
+    <footer className="mt-10 w-full border-t border-text/10 bg-primary-300/65 px-5 py-10 backdrop-blur-sm sm:px-8">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 text-center sm:flex-row sm:text-left">
+        <p className="text-sm font-medium text-text/75 sm:text-base">{t("footer.made")}</p>
+        <ul className="flex flex-row gap-2">
         <FooterLink
           url="https://www.linkedin.com/in/xavierlermusieaux/"
           Icon={IconBrandLinkedin}
@@ -20,7 +21,8 @@ export function Footer() {
         />
         <FooterLink url="https://github.com/Egzavyer" Icon={IconBrandGithub} label="Xavier Lermusieaux on GitHub" />
         <FooterLink url="mailto:xavier.lermusieaux@gmail.com" Icon={IconMail} label="Email Xavier Lermusieaux" />
-      </ul>
+        </ul>
+      </div>
     </footer>
   );
 }
@@ -35,7 +37,7 @@ function FooterLink({ url, Icon, label }: FooterLinkProps) {
   const external = !url.startsWith("mailto:");
   return (
     <li>
-      <a href={url} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="flex size-11 items-center justify-center rounded-lg" aria-label={`${label}${external ? " (opens in a new tab)" : ""}`}>
+      <a href={url} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="flex size-11 items-center justify-center rounded-xl border border-transparent text-text/70 transition-all hover:-translate-y-1 hover:border-text/15 hover:bg-text/5 hover:text-accent" aria-label={`${label}${external ? " (opens in a new tab)" : ""}`}>
         <Icon aria-hidden="true" className="size-7" />
       </a>
     </li>

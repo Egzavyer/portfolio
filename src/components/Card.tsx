@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
+import { IconArrowUpRight } from "@tabler/icons-react";
 
 type CardProps = {
   url: string;
@@ -19,46 +20,57 @@ export function Card({
 }: CardProps) {
   const reduceMotion = useReducedMotion();
   return (
-    <li className="w-full min-w-0">
+    <li className="h-full w-full min-w-0">
       <motion.a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${title}: ${subtitle} (opens in a new tab)`}
+        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+        whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         whileHover={reduceMotion ? undefined : { scale: 1.02 }}
         whileTap={reduceMotion ? undefined : { scale: 0.98 }}
         className="
-          block w-full min-w-0 overflow-hidden
-          border rounded-2xl bg-primary p-3
-          xl:border-2 xl:border-text xl:p-4
-          xl:hover:border-accent xl:hover:shadow-2xl
-          xl:shadow-primary-900
+          group block h-full w-full min-w-0 overflow-hidden
+          rounded-3xl border border-text/25 bg-primary/88 p-5
+          shadow-lg shadow-primary-900/15 backdrop-blur-sm
+          transition-[border-color,box-shadow] duration-300
+          hover:border-accent hover:shadow-2xl hover:shadow-primary-900/25
+          sm:p-7
         "
       >
         <div
           className={`
-            grid min-w-0 grid-cols-1 gap-5
-            ${leftPanel ? "xl:grid-cols-2" : "xl:grid-cols-1"}
+            grid h-full min-w-0 grid-cols-1 gap-6
+            ${leftPanel ? "md:grid-cols-[minmax(10rem,0.35fr)_minmax(0,1fr)] md:gap-8" : ""}
           `}
         >
-          {leftPanel && <div className="min-w-0">{leftPanel}</div>}
+          {leftPanel && (
+            <div className="min-w-0 rounded-2xl bg-primary-300/70 p-4 text-sm text-text/75 sm:p-5">
+              {leftPanel}
+            </div>
+          )}
 
-          <div className="flex min-w-0 flex-col justify-between gap-4">
-            <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
-              <h3 className="min-w-0 wrap-break-word text-xl font-bold xl:text-3xl">
+          <div className="flex min-w-0 flex-col gap-5">
+            <div className="flex min-w-0 items-start justify-between gap-4">
+              <div>
+                <h3 className="min-w-0 wrap-break-word text-2xl font-semibold tracking-tight sm:text-3xl">
                 {title}
-              </h3>
-
-              <div aria-hidden="true" className="hidden h-4 border sm:block" />
-
-              <p className="min-w-0 wrap-break-word text-base xl:text-xl">
-                {subtitle}
-              </p>
+                </h3>
+                <p className="mt-1 min-w-0 wrap-break-word text-base text-text/70 sm:text-lg">
+                  {subtitle}
+                </p>
+              </div>
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-text/20 transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-contrast">
+                <IconArrowUpRight aria-hidden="true" className="size-5" stroke={1.7} />
+              </span>
             </div>
 
-            <p className="wrap-break-word">{description}</p>
+            <p className="wrap-break-word leading-relaxed text-text/85">{description}</p>
 
-            <ul className="flex min-w-0 flex-wrap gap-2 xl:gap-4">
+            <ul className="mt-auto flex min-w-0 flex-wrap gap-2 pt-2">
               {technologies.map((tech) => (
                 <TechnologyLabel key={tech} label={tech} />
               ))}
@@ -76,7 +88,7 @@ type TechnologyLabelProps = {
 
 function TechnologyLabel({ label }: TechnologyLabelProps) {
   return (
-    <li className="max-w-full wrap-break-word rounded-full border bg-accent px-3 py-1 text-center text-accent-contrast">
+    <li className="max-w-full wrap-break-word rounded-full border border-accent/40 bg-accent/12 px-3 py-1 text-center text-sm font-medium text-text">
       {label}
     </li>
   );

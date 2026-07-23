@@ -84,10 +84,10 @@ export function Background({ children, siteRef }: BackgroundProps) {
   }, [width, height]);
 
   return (
-    <div className="size-full">
+    <div className="relative isolate size-full overflow-x-clip bg-primary">
       <svg
         ref={svgRef}
-        className="absolute bg-primary -z-10"
+        className="pointer-events-none absolute inset-0 -z-10 bg-primary opacity-35"
         width={width}
         height={height}
         aria-hidden="true"
@@ -97,7 +97,7 @@ export function Background({ children, siteRef }: BackgroundProps) {
           ref={pathRef}
           stroke="var(--color-accent)"
           fill="var(--color-primary)"
-          strokeWidth={2}
+          strokeWidth={1}
         />
       </svg>
 

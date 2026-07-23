@@ -132,13 +132,13 @@ export function Navbar({
 
   return (
     <nav aria-label={t("navbar.primary")}>
-      <div className="flex justify-end fixed z-11 top-5 right-2 xl:hidden">
+      <div className="fixed right-4 top-4 z-30 flex justify-end xl:hidden">
         <div className="flex items-center">
           {isSidebarOpen ? (
             <button
               ref={menuButtonRef}
               type="button"
-              className="flex size-11 items-center justify-center rounded-lg"
+              className="flex size-12 items-center justify-center rounded-xl border border-text/20 bg-primary-300/90 shadow-lg backdrop-blur-xl transition-colors hover:border-accent hover:text-accent"
               onClick={() => setIsSidebarOpen(false)}
               aria-expanded="true"
               aria-controls="mobile-menu"
@@ -150,7 +150,7 @@ export function Navbar({
             <button
               ref={menuButtonRef}
               type="button"
-              className="flex size-11 items-center justify-center rounded-lg"
+              className="flex size-12 items-center justify-center rounded-xl border border-text/20 bg-primary-300/90 shadow-lg backdrop-blur-xl transition-colors hover:border-accent hover:text-accent"
               onClick={() => setIsSidebarOpen(true)}
               aria-expanded="false"
               aria-controls="mobile-menu"
@@ -171,12 +171,12 @@ export function Navbar({
           initial="closed"
           animate={isSidebarOpen ? "open" : "closed"}
           variants={sidebarVariants}
-          className="fixed z-10 w-9/12 h-full flex justify-center bg-primary-300 right-0 xl:hidden"
+          className="fixed inset-y-0 right-0 z-20 flex w-full max-w-sm justify-center border-l border-text/15 bg-primary-300/95 px-8 shadow-2xl backdrop-blur-2xl xl:hidden"
         >
-          <div className="flex justify-center flex-col gap-12 items-center text-center">
-            <div className="text-xl">
+          <div className="flex flex-col items-center justify-center gap-12 text-center">
+            <div className="text-xl font-semibold tracking-tight">
               <button
-                className="hover:cursor-pointer hover:text-accent"
+                className="rounded-lg px-3 py-2 transition-colors hover:text-accent"
                 type="button"
                 onClick={() => {
                   scrollToSection(heroSectionRef);
@@ -200,11 +200,16 @@ export function Navbar({
           </div>
         </motion.aside>
       ) : undefined}
-      <div className="hidden justify-center items-center fixed w-full z-10 top-4 xl:flex">
-        <div className="flex justify-between items-center border border-text rounded-2xl p-4 w-11/12 bg-primary-300">
-          <div className="text-xl">
+      <motion.div
+        initial={reduceMotion ? false : { opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: "easeOut" }}
+        className="fixed top-5 z-20 hidden w-full items-center justify-center px-8 xl:flex"
+      >
+        <div className="flex w-full max-w-7xl items-center justify-between rounded-2xl border border-text/15 bg-primary-300/85 px-5 py-3 shadow-xl shadow-primary-900/25 backdrop-blur-2xl">
+          <div className="text-lg font-semibold tracking-tight">
             <button
-              className="hover:cursor-pointer hover:text-accent"
+              className="rounded-lg px-2 py-2 transition-colors hover:text-accent"
               type="button"
               onClick={() => scrollToSection(heroSectionRef)}
             >
@@ -223,7 +228,7 @@ export function Navbar({
             toggleTheme={toggleTheme}
           />
         </div>
-      </div>
+      </motion.div>
     </nav>
   );
 }
@@ -241,8 +246,8 @@ function NavbarLinks({
 }: NavbarLinksProps) {
   const { t } = useTranslation();
   return (
-    <div className="flex text-xl items-center">
-      <ul className="flex flex-col gap-12 xl:gap-24 xl:flex-row">
+    <div className="flex items-center text-lg">
+      <ul className="flex flex-col gap-8 xl:flex-row xl:gap-2">
         <NavbarLink label={t("navbar.about")} sectionRef={aboutSectionRef} />
         <NavbarLink
           label={t("navbar.experience")}
@@ -266,7 +271,7 @@ function NavbarLink({ label, sectionRef }: NavbarLinkProps) {
   return (
     <li>
       <button
-        className="hover:cursor-pointer hover:text-accent"
+        className="rounded-lg px-4 py-2 transition-colors hover:bg-text/5 hover:text-accent"
         type="button"
         onClick={() => scrollToSection(sectionRef)}
       >
@@ -292,13 +297,13 @@ function NavbarButtons({
   const { t } = useTranslation();
 
   return (
-    <div className="flex text-xl items-center">
-      <ul className="flex flex-col gap-12 items-center xl:flex-row xl:gap-4">
+    <div className="flex items-center text-base">
+      <ul className="flex flex-col items-center gap-6 xl:flex-row xl:gap-2">
         <a
           href="https://drive.google.com/file/d/1roKglCaNw7mJe6H3dIWoeRh0uEqDQYDY/view"
           target="_blank"
           rel="noopener noreferrer"
-          className="border py-2 px-5 rounded hover:bg-accent hover:text-accent-contrast hover:cursor-pointer"
+          className="rounded-lg border border-text/30 px-4 py-2 font-medium transition-all hover:border-accent hover:bg-accent hover:text-accent-contrast"
           aria-label={`${t("navbar.resume")} (${t("navbar.newTab")})`}
         >
           {t("navbar.resume")}
@@ -333,7 +338,7 @@ function NavbarButton({
   return (
     <li className="flex items-center">
       <button
-        className={`${className ?? ""} flex min-h-11 min-w-11 items-center justify-center rounded-lg cursor-pointer`}
+        className={`${className ?? ""} flex min-h-11 min-w-11 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-text/5 hover:text-accent`}
         type="button"
         onClick={onClick}
         aria-label={ariaLabel}

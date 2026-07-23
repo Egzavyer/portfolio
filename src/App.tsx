@@ -25,14 +25,14 @@ function App() {
   return (
     <Background siteRef={siteRef}>
       <a
-        className="fixed left-3 top-3 z-100 -translate-y-[200%] rounded-lg bg-accent px-4 py-3 font-bold text-accent-contrast focus:translate-y-0"
+        className="fixed left-3 top-3 z-100 translate-y-[-200%] rounded-lg bg-accent px-4 py-3 font-bold text-accent-contrast focus:translate-y-0"
         href="#main-content"
       >
         Skip to main content
       </a>
       <div
         ref={siteRef}
-        className="min-h-screen w-full flex flex-col gap-5 items-center text-text font-saira overflow-hidden"
+        className="flex min-h-screen w-full flex-col items-center overflow-x-clip font-saira text-text"
       >
         <Hero
           aboutSectionRef={aboutSectionRef}

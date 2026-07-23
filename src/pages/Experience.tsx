@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ContentSection } from "../components/ContentSection";
 import { Card } from "../components/Card";
 import type { TFunction } from "i18next";
+import { Reveal } from "../components/Reveal";
 
 function getExperiences(
   t: TFunction<"translation", undefined>,
@@ -64,14 +65,16 @@ export function Experience({
       isSidebarOpen={isSidebarOpen}
       handleTap={handleTap}
     >
-      <div className="flex flex-col gap-15 w-11/12 items-center">
-        <div className="flex flex-col gap-5 w-full">
-          <h2 className="text-3xl text-center pt-28 xl:text-6xl">
-            {t("experience.title")}
-          </h2>
-          <div aria-hidden="true" className="border w-full" />
-        </div>
-        <ul className="flex flex-col items-center justify-center gap-8 xl:w-11/12">
+      <div className="flex w-full max-w-7xl flex-col items-center gap-8 sm:gap-10">
+        <Reveal className="w-full">
+          <div className="flex flex-col items-center text-center">
+            <div aria-hidden="true" className="mb-5 h-1 w-14 rounded-full bg-accent" />
+            <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              {t("experience.title")}
+            </h2>
+          </div>
+        </Reveal>
+        <ul className="flex w-full max-w-6xl flex-col items-center justify-center gap-6 sm:gap-8">
           {getExperiences(t).map((exp) => {
             return <WorkExperience key={exp.company} {...exp} />;
           })}
@@ -99,12 +102,12 @@ function WorkExperience({
   url,
 }: WorkExperienceProps) {
   const workDates = (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-4">
       {dates.map((date) => {
         return (
           <li key={date.date}>
-            <h3 className="font-semibold">{date.label}</h3>
-            <p>{date.date}</p>
+            <h4 className="font-semibold text-text">{date.label}</h4>
+            <p className="mt-0.5">{date.date}</p>
           </li>
         );
       })}

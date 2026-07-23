@@ -11,6 +11,7 @@ import Cpp from "../assets/icons/cpp.svg?react";
 import Linux from "../assets/icons/linux-original.svg?react";
 import { ContentSection } from "../components/ContentSection";
 import { motion, useReducedMotion } from "motion/react";
+import { Reveal } from "../components/Reveal";
 
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLElement | null>;
@@ -31,21 +32,27 @@ export function About({
       id="about"
       handleTap={handleTap}
     >
-      <div className="flex flex-col justify-center items-center gap-20 text-center pt-20 w-11/12 xl:pt-0 xl:text-left xl:flex-row xl:justify-between">
-        <div className="flex flex-col flex-1 gap-3 border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 bg-primary">
-          <h2 className="text-3xl xl:text-6xl">{t("about.blurb.title")}</h2>
-          <div aria-hidden="true" className="border w-full border-text" />
-          <div className="flex flex-col gap-2 text-lg w-full xl:text-2xl">
-            <p>{t("about.blurb.line1")}</p>
-            <p>{t("about.blurb.line2")}</p>
-            <p>{t("about.blurb.line3")}</p>
+      <div className="grid w-full max-w-7xl items-stretch gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)] lg:gap-8">
+        <Reveal className="h-full">
+          <div className="flex h-full flex-col rounded-3xl border border-text/25 bg-primary/88 p-6 shadow-xl shadow-primary-900/20 backdrop-blur-sm sm:p-9 lg:p-12">
+            <div aria-hidden="true" className="mb-6 h-1 w-14 rounded-full bg-accent" />
+            <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              {t("about.blurb.title")}
+            </h2>
+            <div className="mt-8 flex w-full max-w-3xl flex-col gap-5 text-base leading-relaxed text-text/85 sm:text-lg lg:text-xl">
+              <p>{t("about.blurb.line1")}</p>
+              <p>{t("about.blurb.line2")}</p>
+              <p>{t("about.blurb.line3")}</p>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center items-center w-fit border border-text p-10 rounded-2xl shadow-2xl shadow-primary-900 bg-primary">
-          <div className="flex flex-col gap-3 items-center">
-            {/*TODO: possibly make this a carousel */}
-            <h2 className="text-2xl xl:text-5xl">{t("about.techs.title")}</h2>
-            <ul className="grid grid-cols-3 gap-7 items-stretch">
+        </Reveal>
+        <Reveal className="h-full" delay={0.12}>
+          <div className="flex h-full items-center justify-center rounded-3xl border border-text/25 bg-primary-300/82 p-5 shadow-xl shadow-primary-900/20 backdrop-blur-sm sm:p-8">
+            <div className="flex flex-col items-center gap-7">
+              <h2 className="text-center text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+                {t("about.techs.title")}
+              </h2>
+              <ul className="grid grid-cols-3 items-stretch gap-2 sm:gap-5">
               <TechIcon Icon={Go} url="https://go.dev/" label="Go" />
               <TechIcon Icon={Cpp} url="https://cplusplus.com/" label="C++" />
               <TechIcon Icon={Rust} url="https://rust-lang.org/" label="Rust" />
@@ -75,9 +82,10 @@ export function About({
                 url="https://just.systems/man/en/"
                 label="Just"
               />
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </ContentSection>
   );
@@ -92,18 +100,18 @@ type TechIconProps = {
 function TechIcon({ Icon, url, label }: TechIconProps) {
   const reduceMotion = useReducedMotion();
   return (
-    <li>
+    <li className="flex justify-center">
       <motion.a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="size-24 flex flex-col items-center justify-center gap-2 rounded-lg"
-        whileHover={reduceMotion ? undefined : { scale: 1.3 }}
-        whileTap={reduceMotion ? undefined : { scale: 0.9 }}
+        className="group flex size-20 flex-col items-center justify-center gap-1.5 rounded-2xl border border-transparent text-xs transition-colors hover:border-text/15 hover:bg-text/5 hover:text-accent sm:size-24 sm:gap-2 sm:text-sm"
+        whileHover={reduceMotion ? undefined : { y: -5 }}
+        whileTap={reduceMotion ? undefined : { scale: 0.96 }}
         aria-label={`${label} website (opens in a new tab)`}
       >
-        <Icon aria-hidden="true" focusable="false" width={70} height={70} />
-        <span>{label}</span>
+        <Icon aria-hidden="true" focusable="false" className="size-11 transition-transform duration-300 group-hover:scale-105 sm:size-14" />
+        <span className="font-medium">{label}</span>
       </motion.a>
     </li>
   );
