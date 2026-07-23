@@ -19,6 +19,7 @@ export function Background({ children, siteRef }: BackgroundProps) {
   const pathRef = useRef<SVGPathElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const requestRef = useRef<number | null>(null);
+  const hasRenderedRef = useRef(false);
 
   const particles = useRef<Particle[]>([]);
   const dimensionsRef = useRef({ width: 0, height: 0 });
@@ -111,6 +112,10 @@ export function Background({ children, siteRef }: BackgroundProps) {
           currentDimensions.height,
         ]);
         pathRef.current?.setAttribute("d", voronoi.render());
+        if (!hasRenderedRef.current && svgRef.current) {
+          hasRenderedRef.current = true;
+          svgRef.current.style.opacity = "0.35";
+        }
         requestRef.current = requestAnimationFrame(animate);
       };
 
@@ -133,7 +138,7 @@ export function Background({ children, siteRef }: BackgroundProps) {
     <div className="relative isolate size-full overflow-x-clip bg-primary">
       <svg
         ref={svgRef}
-        className="pointer-events-none absolute inset-0 -z-10 bg-primary opacity-35"
+        className="pointer-events-none absolute inset-0 -z-10 bg-primary opacity-0 transition-opacity duration-1000 ease-out motion-reduce:transition-none"
         width={width}
         height={height}
         aria-hidden="true"
