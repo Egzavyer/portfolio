@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Navbar } from "../components/Navbar";
 import { IconArrowDown } from "@tabler/icons-react";
-import { motion, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import {
   useRef,
   type Dispatch,
@@ -13,6 +13,7 @@ type HeroProps = {
   aboutSectionRef: RefObject<HTMLElement | null>;
   experienceSectionRef: RefObject<HTMLElement | null>;
   projectsSectionRef: RefObject<HTMLElement | null>;
+  contactSectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
   handleTap: () => void;
@@ -22,6 +23,7 @@ export function Hero({
   aboutSectionRef,
   experienceSectionRef,
   projectsSectionRef,
+  contactSectionRef,
   isSidebarOpen,
   setIsSidebarOpen,
   handleTap,
@@ -29,7 +31,6 @@ export function Hero({
   // TODO: add some background images like trees or some kind of scenery, forest for dark mode and mountain for light mode
   const { t } = useTranslation();
   const heroSectionRef = useRef<HTMLElement | null>(null);
-  const reduceMotion = useReducedMotion();
   return (
     <header
       id="home"
@@ -42,16 +43,17 @@ export function Hero({
         aboutSectionRef={aboutSectionRef}
         experienceSectionRef={experienceSectionRef}
         projectsSectionRef={projectsSectionRef}
+        contactSectionRef={contactSectionRef}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
       <div
         onClick={handleTap}
-        aria-hidden={isSidebarOpen || undefined}
+        inert={isSidebarOpen}
         className={`relative flex flex-1 flex-col items-center justify-center px-5 py-28 text-center sm:px-8 ${isSidebarOpen ? "pointer-events-none blur-xs" : "blur-none"}`}
       >
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+        <m.div
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="flex max-w-5xl flex-col items-center"
@@ -69,28 +71,31 @@ export function Hero({
           <p className="mt-7 text-sm uppercase tracking-[0.18em] text-text/60 sm:text-base">
             {t("hero.tagline")}
           </p>
-        </motion.div>
-        <motion.button
+        </m.div>
+        <m.button
           type="button"
           onClick={() =>
             aboutSectionRef.current?.scrollIntoView({
-              behavior: reduceMotion ? "auto" : "smooth",
+              behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "auto"
+                : "smooth",
             })
           }
           aria-label={t("navbar.about")}
-          initial={reduceMotion ? false : { opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.85, duration: 0.5 }}
           className="absolute bottom-8 flex size-12 items-center justify-center rounded-full border border-text/25 bg-primary/60 backdrop-blur-sm transition-colors hover:border-accent hover:text-accent sm:bottom-10"
         >
-          <motion.span
+          <m.span
             aria-hidden="true"
-            animate={reduceMotion ? undefined : { y: [0, 5, 0] }}
+            animate={{ y: [0, 5, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           >
             <IconArrowDown stroke={1.5} />
-          </motion.span>
-        </motion.button>
+          </m.span>
+        </m.button>
       </div>
     </header>
   );

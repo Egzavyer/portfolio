@@ -5,13 +5,20 @@ import {
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { Reveal } from "./Reveal";
+import type { RefObject } from "react";
 
-export function Contact() {
+type ContactProps = {
+  sectionRef: RefObject<HTMLElement | null>;
+};
+
+export function Contact({ sectionRef }: ContactProps) {
   const { t } = useTranslation();
 
   return (
     <section
       id="contact"
+      ref={sectionRef}
+      tabIndex={-1}
       className="w-full scroll-mt-20 px-5 py-20 sm:px-8 sm:py-24 lg:px-12"
       aria-labelledby="contact-title"
     >

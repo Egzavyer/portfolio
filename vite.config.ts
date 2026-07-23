@@ -18,11 +18,6 @@ export default defineConfig({
               priority: 20,
             },
             {
-              name: "motion-vendor",
-              test: /node_modules[\\/]motion[\\/]/,
-              priority: 20,
-            },
-            {
               name: "visualization-vendor",
               test: /node_modules[\\/](d3-delaunay|delaunator)[\\/]/,
               priority: 20,
@@ -31,12 +26,6 @@ export default defineConfig({
               name: "i18n-vendor",
               test: /node_modules[\\/](i18next|react-i18next)[\\/]/,
               priority: 20,
-            },
-            {
-              name: "vendor",
-              test: /node_modules[\\/]/,
-              maxSize: 350 * 1024,
-              priority: 10,
             },
           ],
         },

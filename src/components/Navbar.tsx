@@ -9,13 +9,14 @@ import {
   type SetStateAction,
 } from "react";
 import i18n from "../../i18n/i18n";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import * as m from "motion/react-m";
 
 type NavbarProps = {
   heroSectionRef: RefObject<HTMLElement | null>;
   aboutSectionRef: RefObject<HTMLElement | null>;
   experienceSectionRef: RefObject<HTMLElement | null>;
   projectsSectionRef: RefObject<HTMLElement | null>;
+  contactSectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -34,6 +35,7 @@ export function Navbar({
   aboutSectionRef,
   experienceSectionRef,
   projectsSectionRef,
+  contactSectionRef,
   isSidebarOpen,
   setIsSidebarOpen,
 }: NavbarProps) {
@@ -46,7 +48,6 @@ export function Navbar({
       : "dark";
   });
   const [language, setLanguage] = useState<"EN" | "FR">("EN");
-  const reduceMotion = useReducedMotion();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const sidebarRef = useRef<HTMLElement>(null);
 
@@ -111,25 +112,6 @@ export function Navbar({
     }
   }
 
-  const sidebarVariants: Variants = {
-    open: {
-      x: 0,
-      opacity: 1,
-      transition: reduceMotion ? { duration: 0 } : {
-        type: "spring",
-        stiffness: 300,
-        damping: 40,
-      },
-    },
-    closed: {
-      x: "100%",
-      opacity: 0,
-      transition: reduceMotion
-        ? { duration: 0 }
-        : { type: "spring", stiffness: 300, damping: 30 },
-    },
-  };
-
   return (
     <nav aria-label={t("navbar.primary")}>
       <div className="fixed right-4 top-4 z-30 flex justify-end xl:hidden">
@@ -161,17 +143,25 @@ export function Navbar({
           )}
         </div>
       </div>
-      {isSidebarOpen ? (
-        <motion.aside
+      <m.aside
           ref={sidebarRef}
           id="mobile-menu"
           role="dialog"
           aria-modal="true"
           aria-label={t("navbar.mobileMenu")}
-          initial="closed"
-          animate={isSidebarOpen ? "open" : "closed"}
-          variants={sidebarVariants}
-          className="fixed inset-y-0 right-0 z-20 flex w-full max-w-sm justify-center border-l border-text/15 bg-primary-300/95 px-8 shadow-2xl backdrop-blur-2xl xl:hidden"
+          aria-hidden={!isSidebarOpen}
+          inert={!isSidebarOpen}
+          initial={false}
+          animate={{
+            x: isSidebarOpen ? 0 : "100%",
+            opacity: isSidebarOpen ? 1 : 0,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 32 }}
+          className={`fixed inset-y-0 right-0 z-20 flex w-full max-w-sm justify-center border-l border-text/15 bg-primary-300/95 px-8 shadow-2xl backdrop-blur-2xl xl:hidden ${
+            isSidebarOpen
+              ? ""
+              : "pointer-events-none"
+          }`}
         >
           <div className="flex flex-col items-center justify-center gap-12 text-center">
             <div className="text-xl font-semibold tracking-tight">
@@ -179,8 +169,8 @@ export function Navbar({
                 className="rounded-lg px-3 py-2 transition-colors hover:text-accent"
                 type="button"
                 onClick={() => {
-                  scrollToSection(heroSectionRef);
                   setIsSidebarOpen(false);
+                  requestAnimationFrame(() => scrollToSection(heroSectionRef));
                 }}
               >
                 Xavier Lermusieaux
@@ -190,6 +180,8 @@ export function Navbar({
               aboutSectionRef={aboutSectionRef}
               experienceSectionRef={experienceSectionRef}
               projectsSectionRef={projectsSectionRef}
+              contactSectionRef={contactSectionRef}
+              onNavigate={() => setIsSidebarOpen(false)}
             />
             <NavbarButtons
               theme={theme}
@@ -198,10 +190,9 @@ export function Navbar({
               toggleTheme={toggleTheme}
             />
           </div>
-        </motion.aside>
-      ) : undefined}
-      <motion.div
-        initial={reduceMotion ? false : { opacity: 0, y: -20 }}
+      </m.aside>
+      <m.div
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
         className="fixed top-5 z-20 hidden w-full items-center justify-center px-8 xl:flex"
@@ -220,6 +211,7 @@ export function Navbar({
             aboutSectionRef={aboutSectionRef}
             experienceSectionRef={experienceSectionRef}
             projectsSectionRef={projectsSectionRef}
+            contactSectionRef={contactSectionRef}
           />
           <NavbarButtons
             theme={theme}
@@ -228,7 +220,7 @@ export function Navbar({
             toggleTheme={toggleTheme}
           />
         </div>
-      </motion.div>
+      </m.div>
     </nav>
   );
 }
@@ -237,25 +229,40 @@ type NavbarLinksProps = {
   aboutSectionRef: RefObject<HTMLElement | null>;
   experienceSectionRef: RefObject<HTMLElement | null>;
   projectsSectionRef: RefObject<HTMLElement | null>;
+  contactSectionRef: RefObject<HTMLElement | null>;
+  onNavigate?: () => void;
 };
 
 function NavbarLinks({
   aboutSectionRef,
   experienceSectionRef,
   projectsSectionRef,
+  contactSectionRef,
+  onNavigate,
 }: NavbarLinksProps) {
   const { t } = useTranslation();
   return (
     <div className="flex items-center text-lg">
       <ul className="flex flex-col gap-8 xl:flex-row xl:gap-2">
-        <NavbarLink label={t("navbar.about")} sectionRef={aboutSectionRef} />
+        <NavbarLink
+          label={t("navbar.about")}
+          sectionRef={aboutSectionRef}
+          onNavigate={onNavigate}
+        />
         <NavbarLink
           label={t("navbar.experience")}
           sectionRef={experienceSectionRef}
+          onNavigate={onNavigate}
         />
         <NavbarLink
           label={t("navbar.projects")}
           sectionRef={projectsSectionRef}
+          onNavigate={onNavigate}
+        />
+        <NavbarLink
+          label={t("navbar.contact")}
+          sectionRef={contactSectionRef}
+          onNavigate={onNavigate}
         />
       </ul>
     </div>
@@ -265,15 +272,19 @@ function NavbarLinks({
 type NavbarLinkProps = {
   label: string;
   sectionRef: RefObject<HTMLElement | null>;
+  onNavigate?: () => void;
 };
 
-function NavbarLink({ label, sectionRef }: NavbarLinkProps) {
+function NavbarLink({ label, sectionRef, onNavigate }: NavbarLinkProps) {
   return (
     <li>
       <button
         className="rounded-lg px-4 py-2 transition-colors hover:bg-text/5 hover:text-accent"
         type="button"
-        onClick={() => scrollToSection(sectionRef)}
+        onClick={() => {
+          onNavigate?.();
+          requestAnimationFrame(() => scrollToSection(sectionRef));
+        }}
       >
         {label}
       </button>

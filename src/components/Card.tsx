@@ -1,5 +1,6 @@
-import { motion, useReducedMotion } from "motion/react";
 import { IconArrowUpRight } from "@tabler/icons-react";
+import { Reveal } from "./Reveal";
+import * as m from "motion/react-m";
 
 type CardProps = {
   url: string;
@@ -20,25 +21,21 @@ export function Card({
   technologies,
   highlights,
 }: CardProps) {
-  const reduceMotion = useReducedMotion();
   return (
     <li className="h-full w-full min-w-0">
-      <motion.a
+      <Reveal className="h-full">
+      <m.a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${title}: ${subtitle} (opens in a new tab)`}
-        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-        whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={reduceMotion ? undefined : { scale: 1.02 }}
-        whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 380, damping: 28 }}
         className="
           group block h-full w-full min-w-0 overflow-hidden
           rounded-3xl border border-text/25 bg-primary/88 p-5
           shadow-lg shadow-primary-900/15 backdrop-blur-sm
-          transition-[border-color,box-shadow] duration-300
           hover:border-accent hover:shadow-2xl hover:shadow-primary-900/25
           sm:p-7
         "
@@ -92,7 +89,8 @@ export function Card({
             </ul>
           </div>
         </div>
-      </motion.a>
+      </m.a>
+      </Reveal>
     </li>
   );
 }

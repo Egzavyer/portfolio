@@ -1,6 +1,5 @@
 import { useEffect, useRef, type RefObject } from "react";
 import { useDimensions } from "../hooks/useDimensions";
-import * as d3 from "d3-delaunay";
 
 type BackgroundProps = {
   children: React.ReactNode;
@@ -22,66 +21,113 @@ export function Background({ children, siteRef }: BackgroundProps) {
   const requestRef = useRef<number | null>(null);
 
   const particles = useRef<Particle[]>([]);
+  const dimensionsRef = useRef({ width: 0, height: 0 });
 
   const mousePos = useRef<[number, number]>([width / 2, height / 2]);
+
+  useEffect(() => {
+    const previous = dimensionsRef.current;
+    if (
+      previous.width > 0 &&
+      previous.height > 0 &&
+      particles.current.length > 0
+    ) {
+      const scaleX = width / previous.width;
+      const scaleY = height / previous.height;
+      for (const particle of particles.current) {
+        particle.x *= scaleX;
+        particle.y *= scaleY;
+      }
+      mousePos.current = [
+        mousePos.current[0] * scaleX,
+        mousePos.current[1] * scaleY,
+      ];
+    } else {
+      mousePos.current = [width / 2, height / 2];
+    }
+    dimensionsRef.current = { width, height };
+  }, [width, height]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
-    particles.current = Array.from({ length: 150 }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
-    }));
-
-    const animate = () => {
-      for (const particle of particles.current) {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (particle.x < 0) particle.x = width;
-        if (particle.x > width) particle.x = 0;
-
-        if (particle.y < 0) particle.y = height;
-        if (particle.y > height) particle.y = 0;
-      }
-
-      const points: [number, number][] = particles.current.map((p) => [
-        p.x,
-        p.y,
-      ]);
-
-      points.push(mousePos.current);
-
-      const delaunay = d3.Delaunay.from(points);
-
-      const voronoi = delaunay.voronoi([0, 0, width, height]);
-
-      pathRef.current?.setAttribute("d", voronoi.render());
-
-      requestRef.current = requestAnimationFrame(animate);
-    };
-
-    requestRef.current = requestAnimationFrame(animate);
 
     const handleMouseMove = (event: MouseEvent) => {
       if (!svgRef.current) return;
 
       mousePos.current = [event.pageX, event.pageY];
     };
+    let stopped = false;
 
-    window.addEventListener("mousemove", handleMouseMove);
+    const initialize = async () => {
+      const { Delaunay } = await import("d3-delaunay");
+      if (stopped) return;
+
+      // Wait until the lazy-loaded sections have established the document
+      // height, avoiding a briefly over-dense background in the hero.
+      while (
+        !stopped &&
+        dimensionsRef.current.height < window.innerHeight * 1.5
+      ) {
+        await new Promise<void>((resolve) =>
+          requestAnimationFrame(() => resolve()),
+        );
+      }
+      if (stopped) return;
+
+      const random = createSeededRandom(0x06032005);
+      const initialDimensions = dimensionsRef.current;
+      particles.current = Array.from({ length: 150 }, () => ({
+        x: random() * initialDimensions.width,
+        y: random() * initialDimensions.height,
+        vx: (random() - 0.5) * 0.5,
+        vy: (random() - 0.5) * 0.5,
+      }));
+
+      const animate = () => {
+        if (stopped) return;
+        const currentDimensions = dimensionsRef.current;
+        for (const particle of particles.current) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+
+          if (particle.x < 0) particle.x = currentDimensions.width;
+          if (particle.x > currentDimensions.width) particle.x = 0;
+          if (particle.y < 0) particle.y = currentDimensions.height;
+          if (particle.y > currentDimensions.height) particle.y = 0;
+        }
+
+        const points: [number, number][] = particles.current.map((particle) => [
+          particle.x,
+          particle.y,
+        ]);
+        points.push(mousePos.current);
+
+        const voronoi = Delaunay.from(points).voronoi([
+          0,
+          0,
+          currentDimensions.width,
+          currentDimensions.height,
+        ]);
+        pathRef.current?.setAttribute("d", voronoi.render());
+        requestRef.current = requestAnimationFrame(animate);
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      requestRef.current = requestAnimationFrame(animate);
+    };
+    void initialize();
 
     return () => {
+      stopped = true;
       window.removeEventListener("mousemove", handleMouseMove);
 
       if (requestRef.current) {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [width, height]);
+  }, []);
 
   return (
     <div className="relative isolate size-full overflow-x-clip bg-primary">
@@ -104,4 +150,14 @@ export function Background({ children, siteRef }: BackgroundProps) {
       {children}
     </div>
   );
+}
+
+function createSeededRandom(seed: number) {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let value = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  };
 }

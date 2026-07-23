@@ -8,10 +8,10 @@ import Rust from "../assets/icons/rust.svg?react";
 import Python from "../assets/icons/python.svg?react";
 import Pytorch from "../assets/icons/pytorch.svg?react";
 import Cpp from "../assets/icons/cpp.svg?react";
-import Linux from "../assets/icons/linux-original.svg?react";
+import Linux from "../assets/icons/linux.svg?react";
 import { ContentSection } from "../components/ContentSection";
-import { motion, useReducedMotion } from "motion/react";
 import { Reveal } from "../components/Reveal";
+import * as m from "motion/react-m";
 
 type AboutProps = {
   aboutSectionRef: RefObject<HTMLElement | null>;
@@ -35,7 +35,10 @@ export function About({
       <div className="grid w-full max-w-7xl items-stretch gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.65fr)] lg:gap-8">
         <Reveal className="h-full">
           <div className="flex h-full flex-col rounded-3xl border border-text/25 bg-primary/88 p-6 shadow-xl shadow-primary-900/20 backdrop-blur-sm sm:p-9 lg:p-12">
-            <div aria-hidden="true" className="mb-6 h-1 w-14 rounded-full bg-accent" />
+            <div
+              aria-hidden="true"
+              className="mb-6 h-1 w-14 rounded-full bg-accent"
+            />
             <h2 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               {t("about.blurb.title")}
             </h2>
@@ -53,35 +56,41 @@ export function About({
                 {t("about.techs.title")}
               </h2>
               <ul className="grid grid-cols-3 items-stretch gap-2 sm:gap-5">
-              <TechIcon Icon={Go} url="https://go.dev/" label="Go" />
-              <TechIcon Icon={Cpp} url="https://cplusplus.com/" label="C++" />
-              <TechIcon Icon={Rust} url="https://rust-lang.org/" label="Rust" />
-              <TechIcon
-                Icon={Python}
-                url="https://www.python.org/"
-                label="Python"
-              />
-              <TechIcon Icon={React} url="https://react.dev/" label="React" />
-              <TechIcon
-                Icon={Pytorch}
-                url="https://pytorch.org/"
-                label="Pytorch"
-              />
-              <TechIcon
-                Icon={Docker}
-                url="https://www.docker.com/"
-                label="Docker"
-              />
-              <TechIcon
-                Icon={Linux}
-                url="https://www.linux.org/"
-                label="Linux"
-              />
-              <TechIcon
-                Icon={Just}
-                url="https://just.systems/man/en/"
-                label="Just"
-              />
+                <TechIcon Icon={Go} url="https://go.dev/" label="Go" />
+                <TechIcon Icon={Cpp} url="https://cplusplus.com/" label="C++" />
+                <TechIcon
+                  Icon={Rust}
+                  url="https://rust-lang.org/"
+                  label="Rust"
+                  contrastSurface
+                />
+                <TechIcon
+                  Icon={Python}
+                  url="https://www.python.org/"
+                  label="Python"
+                />
+                <TechIcon Icon={React} url="https://react.dev/" label="React" />
+                <TechIcon
+                  Icon={Pytorch}
+                  url="https://pytorch.org/"
+                  label="Pytorch"
+                />
+                <TechIcon
+                  Icon={Docker}
+                  url="https://www.docker.com/"
+                  label="Docker"
+                />
+                <TechIcon
+                  Icon={Linux}
+                  url="https://www.linux.org/"
+                  label="Linux"
+                  contrastSurface
+                />
+                <TechIcon
+                  Icon={Just}
+                  url="https://just.systems/man/en/"
+                  label="Just"
+                />
               </ul>
             </div>
           </div>
@@ -95,27 +104,45 @@ type TechIconProps = {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   url: string;
   label: string;
+  contrastSurface?: boolean;
 };
 
-function TechIcon({ Icon, url, label }: TechIconProps) {
-  const reduceMotion = useReducedMotion();
+function TechIcon({
+  Icon,
+  url,
+  label,
+  contrastSurface = false,
+}: TechIconProps) {
   return (
     <li className="flex justify-center">
-      <motion.a
+      <m.a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex size-20 flex-col items-center justify-center gap-1.5 rounded-2xl border border-transparent text-xs transition-colors hover:border-text/15 hover:bg-text/5 hover:text-accent sm:size-24 sm:gap-2 sm:text-sm"
-        whileHover={reduceMotion ? undefined : { y: -5 }}
-        whileTap={reduceMotion ? undefined : { scale: 0.96 }}
+        whileHover={{ scale: 1.3 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 24 }}
         aria-label={`${label} website (opens in a new tab)`}
       >
-        <Icon aria-hidden="true" focusable="false" className="size-11 transition-transform duration-300 group-hover:scale-105 sm:size-14" />
+        <span
+          className={`flex size-14 items-center justify-center sm:size-16 ${
+            contrastSurface
+              ? "rounded-full bg-white p-0.5"
+              : ""
+          }`}
+        >
+          <Icon
+            aria-hidden="true"
+            focusable="false"
+            className={contrastSurface ? "size-full" : "size-11 sm:size-14"}
+          />
+        </span>
         <span className="font-medium">
           {label}
           <span className="sr-only"> website</span>
         </span>
-      </motion.a>
+      </m.a>
     </li>
   );
 }
