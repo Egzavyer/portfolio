@@ -299,16 +299,18 @@ function NavbarButtons({
   return (
     <div className="flex items-center text-base">
       <ul className="flex flex-col items-center gap-6 xl:flex-row xl:gap-2">
-        <a
-          href="https://drive.google.com/file/d/1roKglCaNw7mJe6H3dIWoeRh0uEqDQYDY/view"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-lg border border-text/30 px-4 py-2 font-medium transition-all hover:border-accent hover:bg-accent hover:text-accent-contrast"
-          aria-label={`${t("navbar.resume")} (${t("navbar.newTab")})`}
-        >
-          {t("navbar.resume")}
-        </a>
-        <NavbarButton onClick={toggleLanguage} ariaLabel={t("navbar.changeLanguage", { language: language === "EN" ? "Français" : "English" })}>
+        <li>
+          <a
+            href="https://drive.google.com/file/d/1roKglCaNw7mJe6H3dIWoeRh0uEqDQYDY/view"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-lg border border-text/30 px-4 py-2 font-medium transition-all hover:border-accent hover:bg-accent hover:text-accent-contrast"
+            aria-label={`${t("navbar.resume")} (${t("navbar.newTab")})`}
+          >
+            {t("navbar.resume")}
+          </a>
+        </li>
+        <NavbarButton onClick={toggleLanguage} ariaLabel={`${language}: ${t("navbar.changeLanguage", { language: language === "EN" ? "Français" : "English" })}`}>
           {language}
         </NavbarButton>
         <NavbarButton onClick={toggleTheme} ariaLabel={t(theme === "light" ? "navbar.useDarkTheme" : "navbar.useLightTheme")}>

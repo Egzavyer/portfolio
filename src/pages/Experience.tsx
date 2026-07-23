@@ -106,7 +106,7 @@ function WorkExperience({
       {dates.map((date) => {
         return (
           <li key={date.date}>
-            <h4 className="font-semibold text-text">{date.label}</h4>
+            <p className="font-semibold text-text">{date.label}</p>
             <p className="mt-0.5">{date.date}</p>
           </li>
         );

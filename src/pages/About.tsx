@@ -111,7 +111,10 @@ function TechIcon({ Icon, url, label }: TechIconProps) {
         aria-label={`${label} website (opens in a new tab)`}
       >
         <Icon aria-hidden="true" focusable="false" className="size-11 transition-transform duration-300 group-hover:scale-105 sm:size-14" />
-        <span className="font-medium">{label}</span>
+        <span className="font-medium">
+          {label}
+          <span className="sr-only"> website</span>
+        </span>
       </motion.a>
     </li>
   );
