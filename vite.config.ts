@@ -7,6 +7,42 @@ import svgr from "vite-plugin-svgr";
 // https://vite.dev/config/
 export default defineConfig({
   base: "/portfolio/",
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "react-vendor",
+              test: /node_modules[\\/](react|react-dom)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: "motion-vendor",
+              test: /node_modules[\\/]motion[\\/]/,
+              priority: 20,
+            },
+            {
+              name: "visualization-vendor",
+              test: /node_modules[\\/](d3-delaunay|delaunator)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: "i18n-vendor",
+              test: /node_modules[\\/](i18next|react-i18next)[\\/]/,
+              priority: 20,
+            },
+            {
+              name: "vendor",
+              test: /node_modules[\\/]/,
+              maxSize: 350 * 1024,
+              priority: 10,
+            },
+          ],
+        },
+      },
+    },
+  },
   plugins: [
     svgr(),
     react(),
