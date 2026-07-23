@@ -40,7 +40,7 @@ function getProjects(
 }
 
 type ProjectsProps = {
-  projectsSectionRef: RefObject<HTMLDivElement | null>;
+  projectsSectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   handleTap: () => void;
 };
@@ -60,10 +60,10 @@ export function Projects({
     >
       <div className="flex flex-col gap-15 w-11/12 items-center justify-center">
         <div className="flex flex-col gap-5 w-full">
-          <div className="text-3xl text-center pt-28 xl:text-6xl">
+          <h2 className="text-3xl text-center pt-28 xl:text-6xl">
             {t("projects.title")}
-          </div>
-          <div className="border w-full" />
+          </h2>
+          <div aria-hidden="true" className="border w-full" />
         </div>
         <ul className="grid grid-cols-1 items-stretch gap-10 xl:grid-cols-2 xl:w-11/12">
           {getProjects(t).map((proj) => {

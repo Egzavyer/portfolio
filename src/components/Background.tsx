@@ -25,17 +25,16 @@ export function Background({ children, siteRef }: BackgroundProps) {
 
   const mousePos = useRef<[number, number]>([width / 2, height / 2]);
 
-  const createParticles = () => {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
     particles.current = Array.from({ length: 150 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       vx: (Math.random() - 0.5) * 0.5,
       vy: (Math.random() - 0.5) * 0.5,
     }));
-  };
-
-  useEffect(() => {
-    createParticles();
 
     const animate = () => {
       for (const particle of particles.current) {
@@ -91,6 +90,8 @@ export function Background({ children, siteRef }: BackgroundProps) {
         className="absolute bg-primary -z-10"
         width={width}
         height={height}
+        aria-hidden="true"
+        focusable="false"
       >
         <path
           ref={pathRef}

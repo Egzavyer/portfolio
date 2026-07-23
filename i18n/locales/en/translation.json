@@ -3,7 +3,15 @@
     "about": "About",
     "experience": "Experience",
     "projects": "Projects",
-    "resume": "Resume"
+    "resume": "Resume",
+    "primary": "Primary navigation",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "mobileMenu": "Mobile navigation menu",
+    "newTab": "opens in a new tab",
+    "changeLanguage": "Switch language to {{language}}",
+    "useDarkTheme": "Use dark theme",
+    "useLightTheme": "Use light theme"
   },
   "hero": {
     "welcome": "Welcome! My name is Xavier Lermusieaux",

@@ -21,6 +21,7 @@
   --color-primary-900: var(--primary-900);
   --color-text: var(--text);
   --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
 
   --font-saira: "Saira", sans-serif;
 }
@@ -37,7 +38,8 @@
   --primary-800: oklch(11.162% 0.00685 225.019);
   --primary-900: oklch(9.106% 0.00904 195.746);
   --text: oklch(86.753% 0.03939 147.694);
-  --accent: oklch(49.79% 0.14893 15.274);
+  --accent: #ff8790;
+  --accent-contrast: #171112;
 }
 
 [data-theme="light"] {
@@ -52,7 +54,8 @@
   --primary-800: oklch(30.289% 0.00337 48.224);
   --primary-900: oklch(20.577% 0.00158 16.47);
   --text: #3c243a;
-  --accent: #79b791;
+  --accent: #276749;
+  --accent-contrast: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -67,5 +70,32 @@
   --primary-800: oklch(11.162% 0.00685 225.019);
   --primary-900: oklch(9.106% 0.00904 195.746);
   --text: oklch(86.753% 0.03939 147.694);
-  --accent: oklch(49.79% 0.14893 15.274);
+  --accent: #ff8790;
+  --accent-contrast: #171112;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid Highlight;
+  }
 }

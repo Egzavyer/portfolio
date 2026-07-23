@@ -8,9 +8,9 @@ import {
 } from "react";
 
 type HeroProps = {
-  aboutSectionRef: RefObject<HTMLDivElement | null>;
-  experienceSectionRef: RefObject<HTMLDivElement | null>;
-  projectsSectionRef: RefObject<HTMLDivElement | null>;
+  aboutSectionRef: RefObject<HTMLElement | null>;
+  experienceSectionRef: RefObject<HTMLElement | null>;
+  projectsSectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
   handleTap: () => void;
@@ -26,9 +26,9 @@ export function Hero({
 }: HeroProps) {
   // TODO: add some background images like trees or some kind of scenery, forest for dark mode and mountain for light mode
   const { t } = useTranslation();
-  const heroSectionRef = useRef<HTMLDivElement | null>(null);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
   return (
-    <div className="flex flex-col w-full min-h-screen" ref={heroSectionRef}>
+    <header id="home" tabIndex={-1} className="flex flex-col w-full min-h-screen" ref={heroSectionRef}>
       <Navbar
         heroSectionRef={heroSectionRef}
         aboutSectionRef={aboutSectionRef}
@@ -38,12 +38,13 @@ export function Hero({
         setIsSidebarOpen={setIsSidebarOpen}
       />
       <div
-        onPointerDown={() => handleTap()}
-        className={`flex flex-1 flex-col items-center justify-center gap-8 text-center ${isSidebarOpen ? "blur-xs" : "blur-none"}`}
+        onClick={handleTap}
+        aria-hidden={isSidebarOpen || undefined}
+        className={`flex flex-1 flex-col items-center justify-center gap-8 px-4 text-center ${isSidebarOpen ? "blur-xs pointer-events-none" : "blur-none"}`}
       >
-        <div className="text-4xl xl:text-7xl">{t("hero.welcome")}</div>
-        <div className="text-xl xl:text-4xl">{t("hero.subtitle")}</div>
+        <h1 className="text-4xl xl:text-7xl">{t("hero.welcome")}</h1>
+        <p className="text-xl xl:text-4xl">{t("hero.subtitle")}</p>
       </div>
-    </div>
+    </header>
   );
 }

@@ -1,7 +1,7 @@
 import { type RefObject } from "react";
 
 type ContentSectionProps = {
-  sectionRef: RefObject<HTMLDivElement | null>;
+  sectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   id: string;
   children: React.ReactNode;
@@ -16,13 +16,15 @@ export function ContentSection({
   handleTap,
 }: ContentSectionProps) {
   return (
-    <div
-      onPointerDown={() => handleTap()}
+    <section
+      onClick={handleTap}
       id={id}
       ref={sectionRef}
-      className={`${isSidebarOpen ? "blur-xs" : "blur-none"} min-h-screen flex flex-col w-11/12 items-center justify-center`}
+      tabIndex={-1}
+      aria-hidden={isSidebarOpen || undefined}
+      className={`${isSidebarOpen ? "blur-xs pointer-events-none" : "blur-none"} min-h-screen flex flex-col w-11/12 items-center justify-center scroll-mt-28`}
     >
       {children}
-    </div>
+    </section>
   );
 }

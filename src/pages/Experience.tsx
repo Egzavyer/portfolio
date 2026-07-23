@@ -46,7 +46,7 @@ function getExperiences(
 }
 
 type ExperienceProps = {
-  experienceSectionRef: RefObject<HTMLDivElement | null>;
+  experienceSectionRef: RefObject<HTMLElement | null>;
   isSidebarOpen: boolean;
   handleTap: () => void;
 };
@@ -66,10 +66,10 @@ export function Experience({
     >
       <div className="flex flex-col gap-15 w-11/12 items-center">
         <div className="flex flex-col gap-5 w-full">
-          <div className="text-3xl text-center pt-28 xl:text-6xl">
+          <h2 className="text-3xl text-center pt-28 xl:text-6xl">
             {t("experience.title")}
-          </div>
-          <div className="border w-full" />
+          </h2>
+          <div aria-hidden="true" className="border w-full" />
         </div>
         <ul className="flex flex-col items-center justify-center gap-8 xl:w-11/12">
           {getExperiences(t).map((exp) => {
